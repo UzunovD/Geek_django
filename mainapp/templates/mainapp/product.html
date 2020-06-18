@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'mainapp/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/icomoon.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-
-    <title>{{ page_title }}</title>
-</head>
-
-<body>
-    <div class="conteiner">
+    {% block container %}
         <div class="prod_header">
             <div class="padding_site">
                 <!---              headr                  -->
@@ -130,68 +116,4 @@
             </div>
         </div>
     </div>
-    <!---              footer                 -->
-    <div class="footer">
-        <div class="padding_site">
-            <div class="row_1">
-                <div class="col_1">
-                    <div class="contact_us">
-                        <h3 class="foo_h3">Contact Us</h3>
-                    </div>
-                </div>
-                <div class="col_2">
-                    <div class="information">
-                        <h3 class="foo_h3">Useful Information</h3>
-                    </div>
-                </div>
-                <div class="col_3">
-                    <div class="stay">
-                        <h3 class="foo_h3">Let&rsquo;s Stay in&nbsp;Touch!</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row_2">
-                <div class="col_1">
-                    <div>
-                        <p><a class="foot_text" href="#">132A Bridge Road Richmond VIC&nbsp;Australia.</a><br><br>Talk to&nbsp;us on&nbsp;<span class="foot_text conect">1300&nbsp;132 </span><a class="conect foot_text" href="mailto:info@interior.com">info@interior.com</a></p>
-
-                    </div>
-                </div>
-                <div class="col_4">
-                    <div class="useful">
-                        <p><a class="inform_text" href="#">Sales terms</a><br><a class="inform_text" href="#">Customer care</a><br><a class="inform_text" href="#">Delivery</a></p>
-                    </div>
-                </div>
-                <div class="col_5">
-                    <div class="footer_inform">
-                        <p><a class="inform_text" href="#">Architect accounts</a><br><a class="inform_text" href="#">Careers</a><br><a class="inform_text" href="#">Exchanges &amp;&nbsp;returns</a></p>
-                    </div>
-                </div>
-                <div class="col_3">
-                    <div class="in_touch">
-                        <p class=" suscribe foot_text">Suscribe to&nbsp;know about our latest news, products and special offers just for suscribers</p>
-                    </div>
-                    <form action="#">
-                        <div class="input_email  clearfix">
-                            <input type="email" class="email" placeholder="your email address">
-                            <input class="send_email" type="submit" name="send_email" value="">
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="row_3">
-                <div class="row_3_col1">
-                    <p class="row_3_text">&copy;&nbsp;Copyright&nbsp;&mdash; INTERIOR 2016. All Rights Reserved.</p>
-                </div>
-                <div class="row_3_col2"><a href="#" class="icon-facebook-with-circle footer_icon"></a><a href="#" class="icon-twitter-with-circle footer_icon"></a><a href="#" class="icon-google-with-circle footer_icon"></a><a href="#" class="icon-pinterest-with-circle footer_icon"></a></div>
-                <div class="row3_col-3">
-                    <p><a class="row_3_text" href="#">Terms &amp;&nbsp;Conditions&nbsp;</a>/ <a class="row_3_text" href="#">Privacy policy &amp;&nbsp;Cookies</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-
-</html>
+    {% endblock %}

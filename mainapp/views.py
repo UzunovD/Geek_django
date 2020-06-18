@@ -17,7 +17,7 @@ def contact(request):
 
 def product(request):
     context = {
-        'page_title': 'Product',
+        'page_title': 'Products',
     }
     return render(request, 'mainapp/product.html', context)
 
