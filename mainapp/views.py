@@ -15,11 +15,11 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context)
 
 
-def product(request):
+def products(request):
     context = {
         'page_title': 'Products',
     }
-    return render(request, 'mainapp/product.html', context)
+    return render(request, 'mainapp/products.html', context)
 
 
 def product_deails(request):
