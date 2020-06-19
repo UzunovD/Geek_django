@@ -14,20 +14,24 @@
         <!---              блок1                  -->
         <div class="padding_site">
             <div class="cont_block">
-                {% for item in locations %}
-                    <div class="contact_col">
-                        <span class="icon-location-pin cont_icon"></span>
-                        <span class="cont_loc">{{ item.loc }}</span>
-                        <div class="cont_text">
-                            <span>Phone:</span><br>
-                            <a class="cont_darck_text" href="tel:190012345678">{{ item.phone }}</a> <br><br>
-                            <span>Email:</span> <br>
-                            <a class="cont_darck_text" href="mailto:info@interior.com">{{ item.email }}</a> <br><br>
-                            <span>Address:</span><br>
-                            <span class="cont_adr">{{ item.address }}</span>
+                {% if locations %}
+                    {% for item in locations %}
+                        <div class="contact_col">
+                            <span class="icon-location-pin cont_icon"></span>
+                            <span class="cont_loc">{{ item.loc }}</span>
+                            <div class="cont_text">
+                                <span>Phone:</span><br>
+                                <a class="cont_darck_text" href="tel:190012345678">{{ item.phone }}</a> <br><br>
+                                <span>Email:</span> <br>
+                                <a class="cont_darck_text" href="mailto:info@interior.com">{{ item.email }}</a> <br><br>
+                                <span>Address:</span><br>
+                                <span class="cont_adr">{{ item.address }}</span>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <h3>Данные загружаются</h3>
+                {% endif %}
             </div>
         </div>
     {% endblock %}
