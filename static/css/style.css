@@ -541,6 +541,7 @@ a:focus {
   color: #6c6c6c;
 }
 .footer_icon {
+  font-family: 'icomoon' !important;
   font-size: 28px;
   line-height: 26px;
   font-weight: 400;

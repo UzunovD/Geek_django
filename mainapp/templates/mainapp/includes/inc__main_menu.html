@@ -1,11 +1,11 @@
 {% load static %}
-            <div class="header"><a href="{% url 'index' %}"><img src="{% static 'img/logo_228.svg' %}" alt="logo"></a>
+            <div class="header"><a href="{% url 'main:index' %}"><img src="{% static 'img/logo_228.svg' %}" alt="logo"></a>
                 <ul class="menu">
-                    <li class="menu_list"><a href="{% url 'index' %}" class="menu_link menu_link_active">HOME</a></li>
-                    <li class="menu_list"><a href="{% url 'products' %}" class="menu_link">PRODUCTS</a></li>
+                    <li class="menu_list"><a href="{% url 'main:index' %}" class="menu_link menu_link_active">HOME</a></li>
+                    <li class="menu_list"><a href="{% url 'main:products' %}" class="menu_link">PRODUCTS</a></li>
                     <!-- <li class="menu_list"><a href="#" class="menu_link">HISTORY</a></li> -->
-                    <li class="menu_list"><a href="{% url 'product_deails' %}" class="menu_link">SHOWROOM</a></li>
-                    <li class="menu_list"><a href="{% url 'contact' %}" class="menu_link">CONTACT</a></li>
+                    <li class="menu_list"><a href="{% url 'main:product_details' %}" class="menu_link">SHOWROOM</a></li>
+                    <li class="menu_list"><a href="{% url 'main:contact' %}" class="menu_link">CONTACT</a></li>
                     <li class="menu_list"><a href="#" class="menu_link basket"></a></li>
                     <li class="menu_list"><a href="#" class="menu_link"><img src="{% static 'img/search_224.svg' %}" alt="search"></a></li>
                 </ul>
