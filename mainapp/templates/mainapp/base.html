@@ -14,7 +14,7 @@
     {% block js %}
     {% endblock %}
     {% block title %}
-        <title>{{ page_title }}</title>
+        <title>{{ page_title|title }}</title>
     {% endblock %}
 </head>
 
@@ -82,7 +82,8 @@
             <div class="clearfix"></div>
             <div class="row_3">
                 <div class="row_3_col1">
-                    <p class="row_3_text">&copy;&nbsp;Copyright&nbsp;&mdash; INTERIOR 2016. All Rights Reserved.</p>
+                    <p class="row_3_text">&copy;&nbsp;Copyright&nbsp;&mdash; INTERIOR
+                        {% now "Y" %}. All Rights Reserved.</p>
                 </div>
                 <div class="row_3_col2"><a href="#" class="icon-facebook-with-circle footer_icon"></a><a href="#"
                                                                                                          class="icon-twitter-with-circle footer_icon"></a><a
