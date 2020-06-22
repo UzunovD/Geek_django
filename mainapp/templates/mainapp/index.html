@@ -24,62 +24,21 @@
                 </ul><a href="{% url 'main:products' %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" alt="bat_arrow" height="17"></a>
             </div>
             <div class="block1_row">
-                <div class="col block1"><a href="{% url 'main:product_details' %}" class="block1_link">
-                        <div class="block1_div_img"><img src="{% static 'img/product_1_172.jpg' %}" alt="product"></div>
+                {% for product in products4 %}
+                    <div class="col-sm block1"><a href="{% url 'main:product_details' %}" class="block1_link">
+                        <div class="block1_div_img"><img class="img_270" src="{{ product.image.url }}" alt="{{ product.short_desc }}"></div>
                         <div class="block1_div_img_wh_bg"><img src="{% static 'img/back_174.jpg' %}" alt="background"></div>
                         <div class="block1_content">
                             <div class="block1_circle"><img src="{% static 'img/arrow_205.svg' %}" alt="arrow" height="25"></div>
                             <div class="block1_h">
-                                <h2>Fishnet Chair</h2>
+                                <h2>{{ product.name }}</h2>
                             </div>
                             <div class="block1_p">
-                                <p>Seat and back with upholstery made of&nbsp;cold cure foam.
-                                Seat and back with upholstery made of&nbsp;cold cure foam. Steel frame, available in&nbsp;matt powder-coated black or&nbsp;highly polished chrome.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm block1"><a href="{% url 'main:product_details' %}" class="block1_link">
-                        <div class="block1_div_img"><img src="{% static 'img/product_2_170.jpg' %}" alt="product_foto"></div>
-                        <div class="block1_div_img_wh_bg"><img src="{% static 'img/back_174.jpg' %}" alt="background"></div>
-                        <div class="block1_content">
-                            <div class="block1_circle"><img src="{% static 'img/arrow_205.svg' %}" alt="arrow" height="20"></div>
-                            <div class="block1_h">
-                                <h2>Fishnet Chair</h2>
-                            </div>
-                            <div class="block1_p">
-                                <p>Seat and back with upholstery made of&nbsp;cold cure foam.</p>
+                                <p>{{ product.description }}</p>
                             </div>
                         </div>
                     </a></div>
-                <div class="col-sm block1"><a href="{% url 'main:product_details' %}" class="block1_link">
-                        <div class="block1_div_img"><img src="{% static 'img/product_3_168.jpg' %}" alt="product photo"></div>
-                        <div class="block1_div_img_wh_bg"><img src="{% static 'img/back_174.jpg' %}" alt="background image"></div>
-                        <div class="block1_content">
-                            <div class="block1_circle"><img src="{% static 'img/arrow_205.svg' %}" alt="arrow" height="20"></div>
-                            <div class="block1_h">
-                                <h2>Fishnet Chair</h2>
-                            </div>
-                            <div class="block1_p">
-                                <p>Seat and back with upholstery made of&nbsp;cold cure foam.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm block1"><a href="{% url 'main:product_details' %}" class="block1_link">
-                        <div class="block1_div_img"><img src="{% static 'img/product_4_166.jpg' %}" alt="product photo"></div>
-                        <div class="block1_div_img_wh_bg"><img src="{% static 'img/back_174.jpg' %}" alt="background image"></div>
-                        <div class="block1_content">
-                            <div class="block1_circle"><img src="{% static 'img/arrow_205.svg' %}" alt="arrow" height="20"></div>
-                            <div class="block1_h">
-                                <h2>Fishnet Chair</h2>
-                            </div>
-                            <div class="block1_p">
-                                <p>Seat and back with upholstery made of&nbsp;cold cure foam.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <!---              Блок2                  -->
@@ -109,36 +68,13 @@
                 </div><a href="{% url 'main:products' %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" height="17" alt="bat_arrow"></a>
             </div>
             <div class="block3_container">
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_11_117.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_21_115.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_31_113.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_41_111.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_51_109.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
-                <div class="block3_col">
-                    <a href="#" class="block3_link">
-                        <div class="block3_div_img"><img src="{% static 'img/product_61_107.jpg' %}" alt="product photo"></div>
-                    </a>
-                </div>
+                {% for product in products6 %}
+                    <div class="block3_col">
+                        <a href="#" class="block3_link">
+                            <div class="block3_div_img"><img class="img_370" src="{{ product.image.url }}" alt="{{ product.short_desc }}"></div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
         <!---              Слайдер2               -->

@@ -1,0 +1,7 @@
+{% load static %}
+        <a class="deails_link deails_link_active" href="#">All</a>
+        {% for category in categories %}
+            <a class="deails_link deails_link_active" href="#">
+                {{ category.name }}
+            </a>
+        {% endfor %}

@@ -212,6 +212,12 @@ a:focus {
 .block1_content {
   position: absolute;
 }
+
+.img_270 {
+  width: 270px;
+  height: 270px;
+}
+
 .block1_div_img_wh_bg {
   display: none;
   opacity: 0.9;
@@ -753,4 +759,9 @@ a:focus {
 }
 .deals_margin {
   height: 120px;
+}
+
+.img_370 {
+  width: 370px;
+  height: 370px;
 }
