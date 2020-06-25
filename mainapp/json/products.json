@@ -1,0 +1,162 @@
+[
+{
+  "name": "fishnet chair",
+  "category": "home",
+  "type_prod": "chair",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia de",
+  "short_desc": "The majesty of Mountains \u2014 Ugmonk style.",
+  "price": "36.70",
+  "image": "products_images/slider1_43.jpg",
+  "quantity": 358
+},
+{
+  "name": "office chair",
+  "category": "office",
+  "type_prod": "chair",
+  "description": "Seat and back with upholstery made of cold cure foam. Steel frame, available in matt powder-coated black or highly polished chrome.",
+  "short_desc": "The best Office Chair",
+  "price": "65.84",
+  "image": "products_images/office_chair.jpeg",
+  "quantity": 245
+},
+{
+  "name": "black sconce",
+  "category": "home",
+  "type_prod": "lamp",
+  "description": "Black sconce for home.",
+  "short_desc": "Black sconce for home.",
+  "price": "13.14",
+  "image": "products_images/product_41_111.jpg",
+  "quantity": 15
+},
+{
+  "name": "ceiling light",
+  "category": "home",
+  "type_prod": "lamp",
+  "description": "White ceiling light for home",
+  "short_desc": "White ceiling light",
+  "price": "18.31",
+  "image": "products_images/product_11_117.jpg",
+  "quantity": 154
+},
+{
+  "name": "white lamp",
+  "category": "office",
+  "type_prod": "lamp",
+  "description": "The oblong white lamp",
+  "short_desc": "oblong white lamp",
+  "price": "9.56",
+  "image": "products_images/product_1_172.jpg",
+  "quantity": 158
+},
+{
+  "name": "high back chair",
+  "category": "modern",
+  "type_prod": "chair",
+  "description": "The blue high back chair",
+  "short_desc": "blue high back chair",
+  "price": "36.78",
+  "image": "products_images/product_2_170.jpg",
+  "quantity": 85
+},
+{
+  "name": "floor lamp",
+  "category": "modern",
+  "type_prod": "lamp",
+  "description": "The brown floor lamp",
+  "short_desc": "brown floor lamp",
+  "price": "15.00",
+  "image": "products_images/product_2_sm_64.jpg",
+  "quantity": 58
+},
+{
+  "name": "jar",
+  "category": "home",
+  "type_prod": "dishes",
+  "description": "The white jar",
+  "short_desc": "white jar",
+  "price": "5.69",
+  "image": "products_images/product_3_168.jpg",
+  "quantity": 154
+},
+{
+  "name": "sofa",
+  "category": "modern",
+  "type_prod": "sofa",
+  "description": "The gray sofa",
+  "short_desc": "gray sofa",
+  "price": "65.74",
+  "image": "products_images/product_3_sm_62.jpg",
+  "quantity": 150
+},
+{
+  "name": "red office chair",
+  "category": "office",
+  "type_prod": "chair",
+  "description": "The red office chair",
+  "short_desc": "red office chair",
+  "price": "25.36",
+  "image": "products_images/product_4_166.jpg",
+  "quantity": 147
+},
+{
+  "name": "clock",
+  "category": "office",
+  "type_prod": "clock",
+  "description": "Wall mounted large gray clock without hands",
+  "short_desc": "gray clock",
+  "price": "19.52",
+  "image": "products_images/product_4_sm_60.jpg",
+  "quantity": 15
+},
+{
+  "name": "chandelier",
+  "category": "classic",
+  "type_prod": "lamp",
+  "description": "The black ceiling chandelier",
+  "short_desc": "black ceiling chandelier",
+  "price": "20.96",
+  "image": "products_images/product_5_sm_58.jpg",
+  "quantity": 124
+},
+{
+  "name": "chair",
+  "category": "office",
+  "type_prod": "chair",
+  "description": "The white low back chair",
+  "short_desc": "white chair",
+  "price": "34.74",
+  "image": "products_images/product_21_115.jpg",
+  "quantity": 54
+},
+{
+  "name": "black lamp",
+  "category": "classic",
+  "type_prod": "lamp",
+  "description": "Classic table lamp in black",
+  "short_desc": "table lamp",
+  "price": "18.50",
+  "image": "products_images/product_31_113.jpg",
+  "quantity": 5
+},
+{
+  "name": "mortar and pestle",
+  "category": "furniture",
+  "type_prod": "accessories",
+  "description": "Black granite polished mortar with pestle",
+  "short_desc": "black mortar and pestle",
+  "price": "4.75",
+  "image": "products_images/product_51_109.jpg",
+  "quantity": 52
+},
+{
+  "name": "something another",
+  "category": "furniture",
+  "type_prod": "dishes",
+  "description": "something another white dishes",
+  "short_desc": "something another white dishes",
+  "price": "3.87",
+  "image": "products_images/product_61_107.jpg",
+  "quantity": 2
+}
+]

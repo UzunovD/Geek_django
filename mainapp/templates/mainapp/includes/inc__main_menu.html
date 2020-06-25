@@ -5,7 +5,20 @@
                     <li class="menu_list"><a href="{% url 'main:products' %}" class="menu_link">PRODUCTS</a></li>
                     <!-- <li class="menu_list"><a href="#" class="menu_link">HISTORY</a></li> -->
                     <li class="menu_list"><a href="{% url 'main:product_details' %}" class="menu_link ">SHOWROOM</a></li>
-                    <li class="menu_list"><a href="{% url 'main:contact' %}" class="menu_link ">CONTACT</a></li>
+                    <li class="menu_list"><a href="{% url 'main:contact' %}" class="menu_link">CONTACT</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="menu_list"><a href="{#% url 'auth:user_update' %#}" class="menu_link">
+                                {{ user.first_name|default:'user' }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="menu_list">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'auth:logout' %}" class="menu_link">LOG OUT</a>
+                        {% else %}
+                            <a href="{% url 'auth:login' %}" class="menu_link">LOG IN</a>
+                        {% endif %}
+                    </li>
                     <li class="menu_list"><a href="#" class="menu_link basket"></a></li>
                     <li class="menu_list"><a href="#" class="menu_link"><img src="{% static 'img/search_224.svg' %}" alt="search"></a></li>
                 </ul>
