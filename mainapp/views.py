@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
 
@@ -42,27 +42,31 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context)
 
 
-def products(request):
+def products(request, pk):
     categories = ProductCategory.objects.all()
-    products = Product.objects.all()
+    if pk == '0':
+        products = Product.objects.all()
+        category ={'name': 'all'}
+    else:
+        category = get_object_or_404(ProductCategory, pk=pk)
+        products = category.product_set.all()
 
     context = {
         'page_title': 'products',
         'categories': categories,
         'products': products,
+        'category': category,
     }
     return render(request, 'mainapp/products.html', context)
 
 
 def product_details(request):
     categories = ProductCategory.objects.all()
-    products = Product.objects.all()
     products3 = Product.objects.all()[4:7]
 
     context = {
         'page_title': 'product deails',
         'categories': categories,
-        'products': products,
         'products3': products3,
     }
     return render(request, 'mainapp/product_details.html', context)

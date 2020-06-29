@@ -3,14 +3,14 @@
 
 {% block container %}
     <form class="form-horizontal" method="post">
+        <h3 class=conf>{{ confirmation }}</h3>
         {% csrf_token %}
         {{ form.as_p }}
         <br>
-        <input class="form-control" type="submit" value="sign in">
+        <input class="form-control" type="submit" value="apply">
     </form>
-    <a href="{% url 'auth:register' %}"
-       class="btn btn-round form-control">
-        sign up
-    </a>
+    <br>
+    <br>
+    <a class="btn btn-default form-control" href="{% url 'main:index' %}">home</a>
 
 {% endblock %}

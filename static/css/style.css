@@ -583,15 +583,11 @@ a:focus {
   color: #6c6c6c;
   padding: 0 35px 19px 7px;
 }
-.menu_active {
-  border-bottom: 3px solid #212121;
-  color: #212121;
-}
 .line {
   color: #6c6c6c;
-  width: 300px;
+  width: 304px;
   position: absolute;
-  margin-top: 41px;
+  margin-top: 31px;
   z-index: -1;
 }
 .f_cycle {
@@ -660,6 +656,7 @@ a:focus {
 }
 .deails_link {
   padding-right: 33px;
+  padding-bottom: 10px;
   font-size: 18px;
   line-height: 1.2;
   font-weight: 700;
@@ -667,7 +664,8 @@ a:focus {
   letter-spacing: 0.1em;
   color: #6c6c6c;
 }
-.deails_link_active {
+.menu_active {
+  border-bottom: 3px solid #212121;
   color: #212121;
 }
 .deails_block {

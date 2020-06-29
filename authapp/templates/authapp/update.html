@@ -1,0 +1,18 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+
+{% block container %}
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <h3 class=conf>{{ confirmation }}</h3> {# костомизировал - подтверждение успешного изменения #}
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <a class="btn btn-default form-control" href="{% url 'auth:pass_change' %}">change password</a>
+    <br>
+    <br>
+    <a class="btn btn-default form-control" href="{% url 'main:index' %}">home</a>
+
+{% endblock %}

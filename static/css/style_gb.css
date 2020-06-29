@@ -1125,3 +1125,8 @@ td:first-child {
 .related-products a:hover .text{
 	display: block;
 }
+
+.conf{
+	color: #4cae4c;
+	text-align: center;
+}

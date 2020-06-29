@@ -21,7 +21,7 @@
             <div class="block1_navig">
                 <ul class="block1_nav">
                     <li class="block1_nav_list"><a href="#" class="block1_nav_link block1_nav_link_active">Featured</a><a href="#" class="block1_nav_link">New</a></li>
-                </ul><a href="{% url 'main:products' %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" alt="bat_arrow" height="17"></a>
+                </ul><a href="{% url 'main:products' 0 %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" alt="bat_arrow" height="17"></a>
             </div>
             <div class="block1_row">
                 {% for product in products4 %}
@@ -65,7 +65,7 @@
             <div class="block3_head">
                 <div class="block1_nav">
                     <h2 class="block1_nav_h2">Trending Products</h2>
-                </div><a href="{% url 'main:products' %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" height="17" alt="bat_arrow"></a>
+                </div><a href="{% url 'main:products' 0 %}" class="explore_all">explore all <img class="bat_arrow" src="{% static 'img/arrow_205.svg' %}" height="17" alt="bat_arrow"></a>
             </div>
             <div class="block3_container">
                 {% for product in products6 %}

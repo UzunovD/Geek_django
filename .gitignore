@@ -138,3 +138,4 @@ cython_debug/
 /db (копия).sqlite3
 /loaddata_mainapp.sh
 /mainapp/fixtures/mainapp.json
+/db (копия до аунтификации).sqlite3

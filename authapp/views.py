@@ -3,7 +3,24 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from app.geekshop.authapp.forms import ShopUserLoginForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm, ShopUserPasswordChangeForm
+
+# from authapp.models import ShopUser
+
+
+def register(request):
+    if request.method == 'POST':
+        form = ShopUserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('auth:login'))
+    else:
+        form = ShopUserRegisterForm()
+    context = {
+        'title': 'Registration',
+        'form': form,
+    }
+    return render(request, 'authapp/register.html', context)
 
 
 def login(request):
@@ -20,12 +37,53 @@ def login(request):
     else:
         form = ShopUserLoginForm()
     context = {
-        'title': 'log in',
+        'title': 'Sign in the system',
         'form': form,
     }
     return render(request, 'authapp/login.html', context)
 
 
+def update(request):
+    if request.method == 'POST':
+        form = ShopUserUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            # костомизировал - подтверждение успешного изменения #
+            context = {
+                'title': 'Chenge personal data',
+                'form': form,
+                'confirmation':'Changed successfully'
+            }
+            return render(request, 'authapp/update.html', context)
+    else:
+        form = ShopUserUpdateForm(instance=request.user)
+    context = {
+        'title': 'Chenge personal data',
+        'form': form,
+    }
+    return render(request, 'authapp/update.html', context)
+
+
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('main:index'))
+
+def pass_change(request):
+    if request.method == 'POST':
+        form = ShopUserPasswordChangeForm(data=request.POST or None, user=request.user)
+        if form.is_valid():
+            form.save()
+            auth.update_session_auth_hash(request, form.user)  # сохраняем текущую сессию
+            context = {
+                'title': 'Chenge password',
+                'form': form,
+                'confirmation': 'Changed successfully'
+            }
+            return render(request, 'authapp/pass_change.html', context)
+    else:
+        form = ShopUserPasswordChangeForm(request.GET)
+        context = {
+            'title': 'Change password',
+            'form': form,
+        }
+        return render(request, 'authapp/pass_change.html', context)
