@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -5,6 +6,7 @@ from mainapp.models import Product
 from basketapp.models import Basket
 
 
+@login_required
 def add_product(request, pk_prod):
     basket = request.user.basket.filter(product=pk_prod).first()
 

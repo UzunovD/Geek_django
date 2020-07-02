@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -42,7 +43,7 @@ def login(request):
     }
     return render(request, 'authapp/login.html', context)
 
-
+@login_required
 def update(request):
     if request.method == 'POST':
         form = ShopUserUpdateForm(request.POST, request.FILES, instance=request.user)
