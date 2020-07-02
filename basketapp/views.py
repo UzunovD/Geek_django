@@ -6,7 +6,7 @@ from basketapp.models import Basket
 
 
 def add_product(request, pk_prod):
-    basket = request.user.basket_set.filter(product=pk_prod).first()
+    basket = request.user.basket.filter(product=pk_prod).first()
 
     if not basket:
         basket = Basket(user=request.user, product=get_object_or_404(Product, pk=pk_prod))
