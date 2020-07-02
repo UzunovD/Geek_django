@@ -48,7 +48,11 @@
                             <a href="{% url 'auth:login' %}" class="menu_link">sign in</a>
                         {% endif %}
                     </li>
-                    <li class="menu_list"><a href="#" class="menu_link basket"></a></li>
+                    <li class="menu_list"><a href="#" class="menu_link basket">
+                        <span>
+                            {% if basket %} ${{ basket.0.total_coast }} ({{ basket.0.total_quantity }} pcs) {% endif %}
+                        </span>
+                    </a></li>
                     <li class="menu_list"><a href="#" class="menu_link"><img src="{% static 'img/search_224.svg' %}" alt="search"></a></li>
                 </ul>
             </div>

@@ -2,12 +2,17 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
 
+def get_basket(request):
+    return request.user.is_authenticated and request.user.basket.all() or []
+
+
 
 def index(request):
     products4 = Product.objects.all()[:4]
     products6 = Product.objects.all()[4:10]
     context = {
         'page_title': 'shop',
+        'basket': get_basket(request),
         'products4': products4,
         'products6': products6,
     }
@@ -36,6 +41,7 @@ def contact(request):
         },
     ]
     context = {
+        'basket': get_basket(request),
         'page_title': 'contact',
         'locations': locations,
     }
@@ -55,6 +61,7 @@ def products(request, pk):
         'page_title': 'products',
         'categories': categories,
         'products': products,
+        'basket': get_basket(request),
         'category': category,
     }
     return render(request, 'mainapp/products.html', context)
@@ -67,6 +74,7 @@ def product_details(request):
     context = {
         'page_title': 'product deails',
         'categories': categories,
+        'basket': get_basket(request),
         'products3': products3,
     }
     return render(request, 'mainapp/product_details.html', context)
