@@ -22,7 +22,7 @@
             <div class="block3_container">
                 {% for product in products %}
                 <div class="block3_col">
-                    <a href="{% url 'main:product_details' %}" class="block3_link">
+                    <a href="{% url 'main:product_page' product.pk %}" class="block3_link">
                         <div class="block3_div_img"><img class="img_370" src="{{ product.image.url }}" alt="{{ product.short_desc }}"></div>
                     </a>
                 </div>

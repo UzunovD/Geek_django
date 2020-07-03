@@ -13,13 +13,13 @@
         <div class="deails_block clearfix">
             <div class="deails_slider_control">
                 <img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="deails_slider img_570">
-                <a href="#" class="slider_control_link img_70"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a><a href="#" class="slider_control_link"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a><a href="#" class="slider_control_link"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a>
+                <a href="#" class="slider_control_link"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a><a href="#" class="slider_control_link"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a><a href="#" class="slider_control_link"><img src="{{ hot_deal.image.url }}" alt="{{ hot_deal.short_desc }}" class="slider_control img_70"></a>
             </div>
             <div class="deails_slider_text">
                 <p class="deails_h">{{ hot_deal.name|title }}</p>
                 <p class="deails_hot">Hot Deal</p><br>
                 <p class="price">$ <span class="p37">{{ hot_deal.price }}</span>/sq</p>
-                <a href="#" class="deails_order">Order Us <img class="bat_arrow" alt="bat_arrow" src="{% static 'img/arrow_31.svg' %}"></a>
+                <a href="{% url 'basket:add_product' hot_deal.pk %}" class="deails_order">Order Us <img class="bat_arrow" alt="bat_arrow" src="{% static 'img/arrow_31.svg' %}"></a>
                 <div>
                     <p class="deails_content_text">{{ hot_deal.description }}</p>
                 </div>
@@ -35,7 +35,7 @@
         <div class="block3_container">
             {% for product in related_products %}
                 <div class="block3_col">
-                    <a href="{% url 'basket:add_product' product.pk %}" class="block3_link">
+                    <a href="{% url 'main:product_page' product.pk %}" class="block3_link">
                         <div class="block3_div_img">
                             <img class="img_370" src="{{ product.image.url }}" alt="{{ product.short_desc }}">
                         </div>

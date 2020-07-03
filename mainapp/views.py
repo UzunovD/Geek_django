@@ -4,6 +4,11 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
 
+
+def get_menu():
+    return ProductCategory.objects.all()
+
+
 def get_basket(request):
     return request.user.is_authenticated and request.user.basket.all() or []
 
@@ -50,7 +55,6 @@ def contact(request):
 
 
 def products(request, pk):
-    categories = ProductCategory.objects.all()
     if pk == '0':
         products = Product.objects.all()
         category = {'name': 'all'}
@@ -60,7 +64,7 @@ def products(request, pk):
 
     context = {
         'page_title': 'products',
-        'categories': categories,
+        'categories': get_menu(),
         'products': products,
         'basket': get_basket(request),
         'category': category,
@@ -68,15 +72,28 @@ def products(request, pk):
     return render(request, 'mainapp/products.html', context)
 
 
+def product_page(request, pk_prod):
+    product = get_object_or_404(Product, pk=pk_prod)
+    # related_products = product.category.product_set.filter(type_prod = product.type_prod).exclude(pk=pk_prod)
+    context = {
+        'categories': get_menu(),
+        'category': product.category,
+        'page_title': 'product details',
+        'basket': get_basket(request),
+        # 'related_products': related_products[:3],
+        'product': product,
+    }
+    return render(request, 'mainapp/product_page.html',context)
+
+
 def product_details(request):
-    categories = ProductCategory.objects.all()
     hot_deal_pk = random.choice(Product.objects.values_list('pk', flat=True))
     hot_deal = Product.objects.get(pk=hot_deal_pk)
     related_products = hot_deal.category.product_set.filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
 
     context = {
-        'page_title': 'product deails',
-        'categories': categories,
+        'page_title': 'product details',
+        'categories': get_menu(),
         'basket': get_basket(request),
         'related_products': related_products[:3],
         'hot_deal': hot_deal,
