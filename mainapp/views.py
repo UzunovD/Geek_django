@@ -1,10 +1,11 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
 
 def get_basket(request):
     return request.user.is_authenticated and request.user.basket.all() or []
-
 
 
 def index(request):
@@ -52,7 +53,7 @@ def products(request, pk):
     categories = ProductCategory.objects.all()
     if pk == '0':
         products = Product.objects.all()
-        category ={'name': 'all'}
+        category = {'name': 'all'}
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
         products = category.product_set.all()
@@ -69,12 +70,15 @@ def products(request, pk):
 
 def product_details(request):
     categories = ProductCategory.objects.all()
-    products3 = Product.objects.all()[4:7]
+    hot_deal_pk = random.choice(Product.objects.values_list('pk', flat=True))
+    hot_deal = Product.objects.get(pk=hot_deal_pk)
+    related_products = hot_deal.category.product_set.filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
 
     context = {
         'page_title': 'product deails',
         'categories': categories,
         'basket': get_basket(request),
-        'products3': products3,
+        'related_products': related_products[:3],
+        'hot_deal': hot_deal,
     }
     return render(request, 'mainapp/product_details.html', context)

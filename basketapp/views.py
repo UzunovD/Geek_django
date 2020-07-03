@@ -7,6 +7,14 @@ from basketapp.models import Basket
 
 
 @login_required
+def view(request):
+    context = {
+        'basket': request.user.basket.all(),
+    }
+    return render(request, 'basket/view.html', context)
+
+
+@login_required
 def add_product(request, pk_prod):
     basket = request.user.basket.filter(product=pk_prod).first()
 
