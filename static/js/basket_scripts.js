@@ -5,8 +5,9 @@ window.onload = function () {
         $.ajax({
             url: '/basket/change/' + event.target.name + '/quantity/' + event.target.value + '/',
             success: function (data) {
-                console.log(data)
-            }
+                $('.basket_list').html(data.result);
+            },
         });
-    })
-};
+    event.preventDefault();
+    });
+}

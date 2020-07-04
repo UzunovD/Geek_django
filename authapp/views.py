@@ -1,10 +1,10 @@
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm, ShopUserPasswordChangeForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm, ShopUserPasswordChangeForm
 
 # from authapp.models import ShopUser
 
@@ -25,8 +25,9 @@ def register(request):
 
 
 def login(request):
+    next = request.GET['next'] if 'next' in request.GET.keys() else ''
     if request.method == 'POST':
-        form = ShopUserLoginForm(data=request.POST)
+        form = ShopUserLoginForm(data=request.POST or None)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -34,14 +35,19 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('main:index'))
+                if 'next' in request.POST.keys():
+                    return HttpResponseRedirect(request.POST['next'])
+                else:
+                    return HttpResponseRedirect(reverse('main:index'))
     else:
         form = ShopUserLoginForm()
     context = {
         'title': 'Sign in the system',
         'form': form,
+        'next': next,
     }
     return render(request, 'authapp/login.html', context)
+
 
 @login_required
 def update(request):
@@ -53,7 +59,7 @@ def update(request):
             context = {
                 'title': 'Chenge personal data',
                 'form': form,
-                'confirmation':'Changed successfully'
+                'confirmation': 'Changed successfully'
             }
             return render(request, 'authapp/update.html', context)
     else:
@@ -68,6 +74,7 @@ def update(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('main:index'))
+
 
 def pass_change(request):
     if request.method == 'POST':
