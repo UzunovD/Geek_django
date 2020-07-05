@@ -7,6 +7,8 @@ from django.urls import reverse
 from mainapp.models import Product
 from basketapp.models import Basket
 
+from geekshop.settings import LOGIN_URL
+
 
 @login_required
 def view(request):
@@ -25,8 +27,9 @@ def delete_product(request, pk_basket):
 
 @login_required
 def add_product(request, pk_prod):
-    if 'login' in request.META.get('HTTP_REFERER'):
-        return HttpResponseRedirect(reverse('mainapp:product_page', args=[pk_prod]))
+    if LOGIN_URL in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('mainapp:product_page',
+                                            kwargs={'pk_prod': pk_prod}))
 
     basket = request.user.basket.filter(product=pk_prod).first()
 
@@ -43,7 +46,7 @@ def add_product(request, pk_prod):
 def change_quantity(request, pk_basket, quantity):
     quantity = int(quantity)
     if request.is_ajax():
-        basket = request.user.basket.get(pk=int(pk_basket))
+        basket = get_object_or_404(Basket, pk=int(pk_basket))
         if quantity > 0:
             basket.quantity = quantity
             basket.save()
