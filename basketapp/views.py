@@ -56,6 +56,6 @@ def change_quantity(request, pk_basket, quantity):
         context = {
             'basket': basket,
         }
-        result = render_to_string('basket/includes/inc__basket_list.html', context)
-        # print(result)
+        result = render_to_string('basket/includes/inc__basket_list.html', context,
+                                  request=request)
         return JsonResponse({'result': result})

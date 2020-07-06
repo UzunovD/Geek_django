@@ -1,0 +1,29 @@
+{% load static %}
+{#        <div class="header">#}
+                <ul class="menu">
+                    <li class="menu_list">
+                        <a href="{% url 'my_admin:home' %}" class="menu_link
+                            {% if request.resolver_match.url_name == 'home' %} menu_link_active {% endif %}">
+                            USERS
+                        </a>
+                    </li>
+                    <li class="menu_list">
+                        <a href="{% url 'adminapp:user_create' %}" class="menu_link
+                            {% if request.resolver_match.url_name == 'create' %} menu_link_active {% endif %}">
+{#                            CREATE#}
+                        </a>
+                    </li>
+{#                    <li class="menu_list">#}
+{#                        <a href="{% url 'main:product_details' %}" class="menu_link#}
+{#                            {% if request.resolver_match.url_name == 'product_details' %} menu_link_active {% endif %}">#}
+{#                            SHOWROOM#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="menu_list">#}
+{#                        <a href="{% url 'main:contact' %}" class="menu_link#}
+{#                        {% if request.resolver_match.url_name == 'contact' %} menu_link_active {% endif %}">#}
+{#                            CONTACT#}
+{#                        </a>#}
+{#                    </li>#}
+                </ul>
+{#        </div>#}

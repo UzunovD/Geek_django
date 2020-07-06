@@ -29,7 +29,8 @@
                     </li>
                     {% if user.is_superuser == True %}
                         <li class="menu_list">
-                            <a href="/admin/" class="menu_link">
+                            <a href="/my/admin/" class="menu_link"
+                               {% if request.resolver_match.url_name == 'admin' %} menu_link_active {% endif %}">
                                 ADMIN
                             </a>
                         </li>

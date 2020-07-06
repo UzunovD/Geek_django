@@ -139,3 +139,4 @@ cython_debug/
 /loaddata_mainapp.sh
 /mainapp/fixtures/mainapp.json
 /db (копия до аунтификации).sqlite3
+/media/users_avatars/

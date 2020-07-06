@@ -1,6 +1,7 @@
 from authapp.models import ShopUser
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.forms import HiddenInput
+import django.forms as forms
 
 
 class ShopUserLoginForm(AuthenticationForm):
@@ -26,6 +27,13 @@ class ShopUserRegisterForm(UserCreationForm):
             field.help_text = ''
 
 
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("You are too young!")
+        return data
+
+
 class ShopUserUpdateForm(UserChangeForm):
     class Meta:
         model = ShopUser
@@ -38,6 +46,13 @@ class ShopUserUpdateForm(UserChangeForm):
             if field_name == 'password':
                 field.widget = HiddenInput()
             field.help_text = ''
+
+
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("You are too young!")
+        return data
 
 
 class ShopUserPasswordChangeForm(PasswordChangeForm):

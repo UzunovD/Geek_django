@@ -1,0 +1,21 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+    {% block container %}
+        <div class="user_delete">
+            <div class="h2 text-center head">
+                {{ page_title|title }}
+            </div>
+            Are you shure you want to recover <b>{{ user_to_recover.username }}
+            {% if user_to_recover.first_name %}
+                ({{ user_to_recover.first_name|title }}
+                    {% if user_to_recover.last_name %}
+                        {{ user_to_recover.last_name }}
+                    {% endif %})
+            {% endif %}</b>?
+            <form method="post">
+                {% csrf_token %}
+                <input class="butt btn-edit" type="submit" value="recover">
+            </form>
+            <a class="butt btn-default" href="{% url 'adminapp:home' %}">cancel</a>
+        </div>
+    {% endblock %}

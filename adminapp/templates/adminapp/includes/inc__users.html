@@ -1,0 +1,55 @@
+{%  load static %}
+    <a href="{% url 'my_admin:user_create' %}" class="butt new_user">
+        new user
+    </a>
+    {% for shop_user in object_list %}
+            <div class="user_record {% if not shop_user.is_active %}not_active{% endif %}">
+                <img src="/media/{{ shop_user.avatar }}" alt="{{ shop_user.username }}">
+                <div class="user_role">
+                    {% if shop_user.is_superuser %}admin{% else %}user{% endif %}
+                    <br>
+                    {% if shop_user.is_staff %}staff{% else %} {% endif %}
+                </div>
+                <div class="user_role user_manage">
+                    {% if shop_user.is_active %}
+                        <a href="{% url 'my_admin:user_update' shop_user.pk %}" class="butt btn-edit">
+                            edit
+                        </a>
+                    {% endif %}
+                    {% if shop_user.is_active %}
+                        <a href="{% url 'my_admin:user_delete' shop_user.pk %}" class="butt btn-delete">
+                            delete
+                        </a>
+                    {% endif %}
+                    {% if not shop_user.is_active %}
+<!---{#                            <a href="{% url 'my_admin:user_recover' shop_user.pk %}" class="butt btn-edit recover">#}-->
+                        <a class="butt btn-edit recover" id="{{ shop_user.pk }}">
+                            recover
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="user_name">
+                    <p><strong>{{ shop_user.username }}</strong></p>
+                    <p>
+                        {% if shop_user.first_name %}
+                            <b>{{ shop_user.first_name|title }}</b>
+                            {% if shop_user.last_name %}
+                                <p>{{ shop_user.last_name|title }}</p>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="user_age">
+                    age:<br>
+                    {{ shop_user.age }} old
+                </div>
+                <div class="user_email">
+                    email:<br>
+                    {{ shop_user.email }}
+                </div>
+                <div class="user_lastlogin">
+                    logged:<br>
+                    {{ shop_user.last_login }}
+                </div>
+            </div>
+        {% endfor %}
