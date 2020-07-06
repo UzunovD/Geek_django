@@ -1,0 +1,35 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block container %}
+    <!---              Блок1                  -->
+    <div class="padding_site">
+        <a href="{% url 'my_admin:category_create' %}" class="butt_cat">
+            new category
+        </a>
+        {% for object in objects %}
+            <div class="category_record {% if not object.is_active %}not_active{% endif %}">
+                <div class="category_name">
+                    {{ object.name|upper }}
+                </div>
+                <div class="category_actions">
+                    <a href="{% url 'adminapp:products' object.pk %}" class="butt_prod_cat btn-edit">
+                        products of category
+                    </a>
+                    <a href="{% url 'my_admin:category_update' object.pk %}" class="butt_cat btn-edit">
+                        edit
+                    </a>
+                    {% if object.is_active %}
+                        <a href="{% url 'my_admin:category_delete' object.pk %}" class="butt_cat btn-delete">
+                            delete
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="category_desc">
+                    {{ object.description|title }}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

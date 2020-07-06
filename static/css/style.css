@@ -667,6 +667,20 @@ a:focus {
     color: #212121;
 }
 
+.admin_header {
+    width: 1366px;
+    /*height: 360px;*/
+    background-color: #f5f5f5;
+}
+
+.admin_head_h {
+    /*margin-top: 124px;*/
+    font-size: 62px;
+    line-height: 72px;
+    font-weight: 100;
+    color: #212121;
+}
+
 .basket_list{
     margin-top: 71px;
     margin-bottom: 122px;

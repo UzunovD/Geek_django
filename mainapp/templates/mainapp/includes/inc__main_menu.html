@@ -27,9 +27,9 @@
                             CONTACT
                         </a>
                     </li>
-                    {% if user.is_superuser == True %}
+                    {% if user.is_staff %}
                         <li class="menu_list">
-                            <a href="/my/admin/" class="menu_link"
+                            <a href="{% url 'adminapp:categories' %}" class="menu_link"
                                {% if request.resolver_match.url_name == 'admin' %} menu_link_active {% endif %}">
                                 ADMIN
                             </a>

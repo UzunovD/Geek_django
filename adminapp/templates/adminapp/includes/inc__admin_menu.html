@@ -1,18 +1,32 @@
 {% load static %}
-{#        <div class="header">#}
                 <ul class="menu">
                     <li class="menu_list">
-                        <a href="{% url 'my_admin:home' %}" class="menu_link
-                            {% if request.resolver_match.url_name == 'home' %} menu_link_active {% endif %}">
-                            USERS
+                        <a href="{% url 'main:index' %}" class="menu_link">
+                            TO THE SITE
                         </a>
                     </li>
+                    {% if user.is_superuser %}
+                        <li class="menu_list">
+                            <a href="{% url 'my_admin:users' %}" class="menu_link
+                                {% if request.resolver_match.url_name == 'users' %}
+                                    menu_link_active
+                                {% endif %}">
+                                USERS
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="menu_list">
-                        <a href="{% url 'adminapp:user_create' %}" class="menu_link
-                            {% if request.resolver_match.url_name == 'create' %} menu_link_active {% endif %}">
-{#                            CREATE#}
-                        </a>
-                    </li>
+                        <a href="{% url 'my_admin:categories' %}" class="menu_link
+                            {% if request.resolver_match.url_name == 'categories' or category.name %}
+                                menu_link_active
+                            {% endif %}">
+                      CATEGORIES
+                      {% if category %}
+                        :<span>{{ category.name }}</span>
+                      {% endif %}
+                    </a>
+                  </li>
+
 {#                    <li class="menu_list">#}
 {#                        <a href="{% url 'main:product_details' %}" class="menu_link#}
 {#                            {% if request.resolver_match.url_name == 'product_details' %} menu_link_active {% endif %}">#}

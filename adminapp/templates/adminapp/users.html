@@ -1,0 +1,11 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block container %}
+    <!---              Блок1                  -->
+    <div class="padding_site">
+        <div class="users_list">
+            {% include 'adminapp/includes/inc__users.html' %}
+        </div>
+    </div>
+{% endblock %}
