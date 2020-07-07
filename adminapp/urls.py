@@ -9,7 +9,7 @@ urlpatterns = [
     path('user/create/', adminapp.user_create, name='user_create'),
     re_path(r'^user/update/(?P<pk>\d+)/$', adminapp.user_update, name='user_update'),
     re_path(r'^user/delete/(?P<pk>\d+)/$', adminapp.user_delete, name='user_delete'),
-    re_path(r'^user/recover/(?P<pk>\d+)/$', adminapp.user_recover, name='user_recover'),
+    re_path(r'user/recover/(?P<pk>\d+)/$', adminapp.user_recover, name='user_recover'),
 
     path('categories/create/', adminapp.category_create, name='category_create'),
     path('categories/read/', adminapp.categories, name='categories'),
