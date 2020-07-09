@@ -1469,6 +1469,7 @@ td:first-child {
     display: inline-block;
     margin: 7px;
 }
+
 .butt_cat {
     box-shadow: 0px 2px 5px 1px rgba(33, 33, 33, 0.35);
     width: 135px;
@@ -1486,6 +1487,7 @@ td:first-child {
     display: inline-block;
     margin: 7px;
 }
+
 .butt_prod_cat {
     box-shadow: 0px 2px 5px 1px rgba(33, 33, 33, 0.35);
     width: 235px;
@@ -1556,6 +1558,70 @@ td:first-child {
     padding: 0 15px;
 }
 
+.product_record {
+    height: 125px;
+    margin: 15px auto;
+    display: flex;
+}
+
+.product_record img {
+    display: block;
+    float: left;
+    height: 125px;
+}
+
+.product_actions {
+    display: grid;
+}
+
+.butt_cat_prod {
+    box-shadow: 0px 2px 5px 1px rgba(33, 33, 33, 0.35);
+    width: 100px;
+    height: 20px;
+    /*background-color: #ffffff;*/
+    border-radius: 13px;
+    text-decoration: none !important;
+    font-size: 10px;
+    line-height: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    /*color: #212121;*/
+    text-align: center;
+    display: inline-block;
+    margin: 7px;
+}
+
+.product_record .product_name {
+    display: block;
+    float: left;
+    margin-top: 15px;
+    margin-left: 25px;
+    width: 175px;
+}
+
+.product_record .summary {
+    display: block;
+    float: left;
+    margin-left: 35px;
+    margin-top: 10px;
+    line-height: 28px;
+}
+
+.product_record .product_desc {
+    display: block;
+    float: left;
+    margin-top: 10px;
+    line-height: 20px;
+    margin-left: 35px;
+    width: 210px;
+}
+
+.products_list .butt_cat {
+    margin-top: 20px;
+    margin-left: 320px;
+}
+
 .user_record {
     height: 125px;
     margin: 15px auto;
@@ -1616,9 +1682,11 @@ td:first-child {
     margin-left: 25px;
     width: 110px;
 }
-.recover:hover{
+
+.recover:hover {
     background-color: lime;
 }
+
 .user_record .user_manage {
     display: block;
     float: left;

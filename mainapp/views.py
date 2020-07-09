@@ -6,7 +6,7 @@ from mainapp.models import ProductCategory, Product
 
 
 def get_menu():
-    return ProductCategory.objects.all()
+    return ProductCategory.objects.filter(is_active=True)
 
 
 def get_basket(request):
@@ -14,8 +14,8 @@ def get_basket(request):
 
 
 def index(request):
-    products4 = Product.objects.all()[:4]
-    products6 = Product.objects.all()[4:10]
+    products4 = Product.objects.filter(is_active=True)[:4]
+    products6 = Product.objects.filter(is_active=True)[4:10]
     context = {
         'page_title': 'shop',
         'basket': get_basket(request),
@@ -56,11 +56,11 @@ def contact(request):
 
 def products(request, pk):
     if pk == '0':
-        products = Product.objects.all()
+        products = Product.objects.filter(is_active=True)
         category = {'name': 'all'}
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
-        products = category.product_set.all()
+        products = category.product_set.filter(is_active=True)
 
     context = {
         'page_title': 'products',
@@ -87,9 +87,9 @@ def product_page(request, pk_prod):
 
 
 def product_details(request):
-    hot_deal_pk = random.choice(Product.objects.values_list('pk', flat=True))
+    hot_deal_pk = random.choice(Product.objects.filter(is_active=True).values_list('pk', flat=True))
     hot_deal = Product.objects.get(pk=hot_deal_pk)
-    related_products = hot_deal.category.product_set.filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
+    related_products = hot_deal.category.product_set.filter(is_active=True).filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
 
     context = {
         'page_title': 'product details',

@@ -1,0 +1,9 @@
+{% load static %}
+
+        {% if 'users' in page_title %}
+            "{% url 'adminapp:users' %}"
+        {% elif 'category' in page_title %}
+            "{% url 'adminapp:categories' %}"
+        {% elif 'product' in page_title %}
+            "{% url 'adminapp:category_products' pk %}"
+        {% endif %}

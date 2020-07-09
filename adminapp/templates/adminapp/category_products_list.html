@@ -4,11 +4,11 @@
 {% block container %}
     <div class="padding_site">
         <div class="products_list">
-            <a href="{#% url 'admin:product_create' category.pk %#}" class="butt_cat btn-edit">
+            <a href="{% url 'my_admin:product_create' category.pk %}" class="butt_cat btn-edit">
                 new product
             </a>
             {% for object in objects %}
-                <div class="product_record">
+                <div class="product_record {% if not object.is_active %}not_active{% endif %}">
                     <img
                             src="/media/{{ object.image|default:'products_images/!default.png' }}"
                             alt="{{ object.name }}">
@@ -16,13 +16,13 @@
                         {{ object.name|title }}
                     </div>
                     <div class="product_actions">
-                        <a href="{#% url 'admin:product_read' object.pk %#}" class="butt_prod_cat btn-edit">
+                        <a href="{#% url 'admin:product_read' object.pk %#}" class="butt_cat_prod btn-edit">
                             details
                         </a>
-                        <a href="{#% url 'admin:product_update' object.pk %#}" class="butt_prod_cat btn-edit">
+                        <a href="{% url 'my_admin:product_update' object.pk %}" class="butt_cat_prod btn-edit">
                             edit
                         </a>
-                        <a href="{#% url 'admin:product_delete' object.pk %#}" class="butt_cat btn-delete">
+                        <a href="{% url 'my_admin:product_delete' object.pk %}" class="butt_cat_prod btn-delete">
                             delete
                         </a>
                     </div>
@@ -36,6 +36,7 @@
                         {{ object.short_desc|title }}
                     </div>
                 </div>
+                <hr>
             {% endfor %}
         </div>
     </div>

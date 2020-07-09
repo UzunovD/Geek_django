@@ -5,7 +5,7 @@ from adminapp import views as adminapp
 app_name = 'adminapp'
 
 urlpatterns = [
-    path('users/', adminapp.my_admin_users, name='users'),
+    path('', adminapp.my_admin_users, name='users'),
     path('user/create/', adminapp.user_create, name='user_create'),
     re_path(r'^user/update/(?P<pk>\d+)/$', adminapp.user_update, name='user_update'),
     re_path(r'^user/delete/(?P<pk>\d+)/$', adminapp.user_delete, name='user_delete'),
@@ -16,7 +16,13 @@ urlpatterns = [
     path('categories/update/<int:pk>/', adminapp.category_update, name='category_update'),
     path('categories/delete/<int:pk>/', adminapp.category_delete, name='category_delete'),
 
-    path('products/read/category/<int:pk>/', adminapp.products, name='products'),
+    path('category/<int:pk>/products', adminapp.category_products, name='category_products'),
+
+    path('category/<int:pk>/product/create/', adminapp.product_create, name='product_create'),
+    path('product/<int:pk>/read/', adminapp.product_read, name='product_read'),
+    path('product/<int:pk>/update/', adminapp.product_update, name='product_update'),
+    path('product/<int:pk>/delete/', adminapp.product_delete, name='product_delete'),
+
 ]
 
 

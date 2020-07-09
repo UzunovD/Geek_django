@@ -13,7 +13,7 @@
                     {{ object.name|upper }}
                 </div>
                 <div class="category_actions">
-                    <a href="{% url 'adminapp:products' object.pk %}" class="butt_prod_cat btn-edit">
+                    <a href="{% url 'my_admin:category_products' object.pk %}" class="butt_prod_cat btn-edit">
                         products of category
                     </a>
                     <a href="{% url 'my_admin:category_update' object.pk %}" class="butt_cat btn-edit">
