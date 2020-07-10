@@ -1,5 +1,6 @@
 import random
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
@@ -54,13 +55,26 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context)
 
 
-def products(request, pk):
-    if pk == '0':
+def products(request, pk, page=1):
+    if pk == 0:
         products = Product.objects.filter(is_active=True)
-        category = {'name': 'all'}
+        category = {
+            'name': 'all',
+            'pk': pk,
+        }
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
         products = category.product_set.filter(is_active=True)
+
+    if page != 0:
+        products_paginator = Paginator(products, 3)
+        try:
+            products = products_paginator.page(page)
+        except PageNotAnInteger:
+            products = products_paginator.page(1)
+        except EmptyPage:
+            products = products_paginator.page(products_paginator.num_pages)
+
 
     context = {
         'page_title': 'products',
@@ -68,6 +82,7 @@ def products(request, pk):
         'products': products,
         'basket': get_basket(request),
         'category': category,
+        'page': page,
     }
     return render(request, 'mainapp/products.html', context)
 

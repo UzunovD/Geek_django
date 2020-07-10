@@ -19,6 +19,32 @@
                     <hr>
                 </div>
             </div>
+            <div class="paginator">
+                {% if page != 0 %}
+                    {% if products.has_previous %}
+                        <a href="{% url 'main:products_pagination' category.pk 1 %}">
+                            <<
+                        </a>
+                        <a href="{% url 'main:products_pagination' category.pk products.previous_page_number %}">
+                            <
+                        </a>
+                    {% endif %}
+                    <span class="current">page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+                    {% if products.paginator.num_pages > 1 %}
+                        <a href="{% url 'main:products_pagination' category.pk 0 %}">
+                                all
+                            </a>
+                    {% endif %}
+                    {% if products.has_next %}
+                        <a href="{% url 'main:products_pagination' category.pk products.next_page_number %}">
+                            >
+                        </a>
+                            <a href="{% url 'main:products_pagination' category.pk products.paginator.num_pages %}">
+                            >>
+                           </a>
+                    {% endif %}
+                {% endif %}
+            </div>
             <div class="block3_container">
                 {% for product in products %}
                 <div class="block3_col">

@@ -1,8 +1,8 @@
 {% load static %}
-        <a class="deails_link{% if request.resolver_match.kwargs.pk == '0' %}
+        <a class="deails_link{% if request.resolver_match.kwargs.pk == 0 %}
            menu_active {% endif %}" href="{% url 'main:products' 0 %}">All</a>
         {% for category in categories %}
-            <a class="deails_link {% if request.resolver_match.kwargs.pk|add:0 == category.pk %}
+            <a class="deails_link {% if request.resolver_match.kwargs.pk == category.pk %}
                 menu_active {% endif %}" href="{% url 'main:products' category.pk %}">
                 {{ category.name }}
             </a>

@@ -242,10 +242,10 @@ def product_update(request, pk):
 def product_read(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {
-        'product': product,
+        'object': product,
 
     }
-    return render(request, 'adminapp/product_read.thml', context)
+    return render(request, 'adminapp/product_read.html', context)
 
 
 @user_passes_test(lambda user: user.is_staff)

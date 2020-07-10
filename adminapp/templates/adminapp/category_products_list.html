@@ -16,7 +16,7 @@
                         {{ object.name|title }}
                     </div>
                     <div class="product_actions">
-                        <a href="{#% url 'admin:product_read' object.pk %#}" class="butt_cat_prod btn-edit">
+                        <a href="{% url 'my_admin:product_read' object.pk %}" class="butt_cat_prod btn-edit">
                             details
                         </a>
                         <a href="{% url 'my_admin:product_update' object.pk %}" class="butt_cat_prod btn-edit">

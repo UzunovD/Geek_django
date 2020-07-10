@@ -7,8 +7,10 @@ app_name = 'mainapp'
 urlpatterns = [
     path('', mainapp.index, name='index'),
     path('contact/', mainapp.contact, name='contact'),
-    re_path(r'category/(?P<pk>\d+)/products/', mainapp.products, name='products'),
-    re_path(r'^product/(?P<pk_prod>\d+)/$', mainapp.product_page, name='product_page'),
+    path('category/<int:pk>/products/', mainapp.products, name='products'),
+    path('category/<int:pk>/products/<int:page>/', mainapp.products,
+         name='products_pagination'),
+    path('product/<int:pk_prod>/', mainapp.product_page, name='product_page'),
     path('product_details/', mainapp.product_details, name='product_details'),
 
 ]
