@@ -15,8 +15,8 @@ def get_basket(request):
 
 
 def index(request):
-    products4 = Product.objects.filter(is_active=True)[:4]
-    products6 = Product.objects.filter(is_active=True)[4:10]
+    products4 = Product.objects.filter(is_active=True, category__is_active=True)[:4]
+    products6 = Product.objects.filter(is_active=True, category__is_active=True)[4:10]
     context = {
         'page_title': 'shop',
         'basket': get_basket(request),
@@ -57,14 +57,14 @@ def contact(request):
 
 def products(request, pk, page=1):
     if pk == 0:
-        products = Product.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True, category__is_active=True)
         category = {
             'name': 'all',
             'pk': pk,
         }
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
-        products = category.product_set.filter(is_active=True)
+        products = category.product_set.filter(is_active=True, category__is_active=True)
 
     if page != 0:
         products_paginator = Paginator(products, 3)
@@ -102,9 +102,11 @@ def product_page(request, pk_prod):
 
 
 def product_details(request):
-    hot_deal_pk = random.choice(Product.objects.filter(is_active=True).values_list('pk', flat=True))
+    hot_deal_pk = random.choice(Product.objects.filter(is_active=True,
+                                                       category__is_active=True).values_list('pk', flat=True))
     hot_deal = Product.objects.get(pk=hot_deal_pk)
-    related_products = hot_deal.category.product_set.filter(is_active=True).filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
+    related_products = hot_deal.category.product_set.filter(is_active=True,
+                                                            category__is_active=True).filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
 
     context = {
         'page_title': 'product details',

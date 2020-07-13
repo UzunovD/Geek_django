@@ -5,20 +5,15 @@ from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 
 
-class AdminShopUserCreateForm(UserCreationForm):
-    class Meta:
-        model = ShopUser
-        fields = (
-            'username', 'first_name', 'last_name', 'is_superuser',
-            'password1', 'password2', 'email', 'age', 'avatar'
-        )
-
+class AddCSSClassFormControlMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
 
+
+class ChekAge18Mixin:
     def clean_age(self):
         data = self.cleaned_data['age']
         if data < 18:
@@ -26,7 +21,16 @@ class AdminShopUserCreateForm(UserCreationForm):
         return data
 
 
-class AdminShopUserUpdateForm(UserChangeForm):
+class AdminShopUserCreateForm(AddCSSClassFormControlMixin, ChekAge18Mixin, UserCreationForm):
+    class Meta:
+        model = ShopUser
+        fields = (
+            'username', 'first_name', 'last_name', 'is_superuser', 'is_staff',
+            'password1', 'password2', 'email', 'age', 'avatar'
+        )
+
+
+class AdminShopUserUpdateForm(AddCSSClassFormControlMixin, ChekAge18Mixin, UserChangeForm):
     class Meta:
         model = ShopUser
         # fields = '__all__'
@@ -35,40 +39,14 @@ class AdminShopUserUpdateForm(UserChangeForm):
             'password', 'email', 'age', 'avatar', 'is_active', 'is_staff'
         )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''
-            if field_name == 'password':
-                field.widget = forms.HiddenInput()
 
-    def clean_age(self):
-        data = self.cleaned_data['age']
-        if data < 18:
-            raise forms.ValidationError("User is too young!")
-        return data
-
-
-class AdminProductCategoryEditForm(forms.ModelForm):
+class AdminProductCategoryEditForm(AddCSSClassFormControlMixin, forms.ModelForm):
     class Meta:
         model = ProductCategory
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''
 
-
-class AdminProductEditForm(forms.ModelForm):
+class AdminProductEditForm(AddCSSClassFormControlMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''
