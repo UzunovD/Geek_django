@@ -6,10 +6,6 @@ from django.shortcuts import render, get_object_or_404
 from mainapp.models import ProductCategory, Product
 
 
-def get_menu():
-    return ProductCategory.objects.filter(is_active=True)
-
-
 def index(request):
     products_ = Product.objects.filter(is_active=True, category__is_active=True)
     context = {
@@ -71,7 +67,6 @@ def products(request, pk, page=1):
 
     context = {
         'page_title': 'products',
-        'categories': get_menu(),
         'products': products,
         'category': category,
         'page': page,
@@ -82,7 +77,6 @@ def products(request, pk, page=1):
 def product_page(request, pk_prod):
     product = get_object_or_404(Product, pk=pk_prod)
     context = {
-        'categories': get_menu(),
         'category': product.category,
         'page_title': 'product details',
         'product': product,
@@ -99,7 +93,6 @@ def product_details(request):
 
     context = {
         'page_title': 'product details',
-        'categories': get_menu(),
         'related_products': related_products[:3],
         'hot_deal': hot_deal,
     }
