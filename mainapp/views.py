@@ -10,18 +10,12 @@ def get_menu():
     return ProductCategory.objects.filter(is_active=True)
 
 
-def get_basket(request):
-    return request.user.is_authenticated and request.user.basket.all() or []
-
-
 def index(request):
-    products4 = Product.objects.filter(is_active=True, category__is_active=True)[:4]
-    products6 = Product.objects.filter(is_active=True, category__is_active=True)[4:10]
+    products_ = Product.objects.filter(is_active=True, category__is_active=True)
     context = {
         'page_title': 'shop',
-        'basket': get_basket(request),
-        'products4': products4,
-        'products6': products6,
+        'products4': products_[:4],
+        'products6': products_[4:10],
     }
     return render(request, 'mainapp/index.html', context)
 
@@ -48,7 +42,6 @@ def contact(request):
         },
     ]
     context = {
-        'basket': get_basket(request),
         'page_title': 'contact',
         'locations': locations,
     }
@@ -80,7 +73,6 @@ def products(request, pk, page=1):
         'page_title': 'products',
         'categories': get_menu(),
         'products': products,
-        'basket': get_basket(request),
         'category': category,
         'page': page,
     }
@@ -89,13 +81,10 @@ def products(request, pk, page=1):
 
 def product_page(request, pk_prod):
     product = get_object_or_404(Product, pk=pk_prod)
-    # related_products = product.category.product_set.filter(type_prod = product.type_prod).exclude(pk=pk_prod)
     context = {
         'categories': get_menu(),
         'category': product.category,
         'page_title': 'product details',
-        'basket': get_basket(request),
-        # 'related_products': related_products[:3],
         'product': product,
     }
     return render(request, 'mainapp/product_page.html',context)
@@ -111,7 +100,6 @@ def product_details(request):
     context = {
         'page_title': 'product details',
         'categories': get_menu(),
-        'basket': get_basket(request),
         'related_products': related_products[:3],
         'hot_deal': hot_deal,
     }

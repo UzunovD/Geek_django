@@ -1,0 +1,24 @@
+{% extends 'adminapp/base.html' %}
+    {% load static %}
+    {% block container %}
+    <div class="user_delete">
+        <div class="h2 text-center head">
+            {{ page_title|title }}
+        </div>
+        Are you shure you want to delete <b>
+        {% if object.username %}
+            {{ object.username }}
+            {% if object.first_name %}
+                ({{ object.first_name|title }}
+                {% if object.last_name %}
+                    {{ object.last_name|title }})
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input class="butt btn-delete" type="submit" value="delete">
+        </form>
+        <a class="butt btn-default" href={% url 'adminapp:users' %} >cancel</a>
+    </div>
+{% endblock %}

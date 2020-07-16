@@ -5,10 +5,17 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+
 from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm, AdminProductCategoryEditForm, \
     AdminProductEditForm
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
+
+
+class OnlyAdminMixin:
+    @method_decorator(user_passes_test(lambda user: user.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class OnlyStaffMixin:
@@ -17,14 +24,13 @@ class OnlyStaffMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
-class MyContextMixin:
+class PageTitleMixin:
     page_title = ''
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         return context
-
 
 
 # @user_passes_test(lambda user: user.is_superuser)
@@ -38,14 +44,9 @@ class MyContextMixin:
 #     return render(request, 'adminapp/users.html', context)
 
 
-
-class ShopUserList(MyContextMixin, ListView):
+class ShopUserListView(OnlyAdminMixin, PageTitleMixin, ListView):
     model = ShopUser
     page_title = 'admin/users'
-
-    @method_decorator(user_passes_test(lambda user: user.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda user: user.is_superuser)
@@ -66,46 +67,65 @@ class ShopUserList(MyContextMixin, ListView):
 #     return render(request, 'adminapp/update.html', context)
 
 
-class UserCreateView(OnlyStaffMixin, MyContextMixin, CreateView):
+class UserCreateView(OnlyAdminMixin, PageTitleMixin, CreateView):
     model = ShopUser
     form_class = AdminShopUserCreateForm
     page_title = 'users/create'
     success_url = reverse_lazy('my_admin:users')
 
 
-@user_passes_test(lambda user: user.is_superuser)
-def user_update(request, pk):
-    user = get_object_or_404(ShopUser, pk=pk)
-    if request.method == 'POST':
-        user_form = AdminShopUserUpdateForm(request.POST, request.FILES, instance=user)
-        if user_form.is_valid():
-            user_form.save()
-            return HttpResponseRedirect(reverse('my_admin:users'))
-    else:
-        user_form = AdminShopUserUpdateForm(instance=user)
+# @user_passes_test(lambda user: user.is_superuser)
+# def user_update(request, pk):
+#     user = get_object_or_404(ShopUser, pk=pk)
+#     if request.method == 'POST':
+#         user_form = AdminShopUserUpdateForm(request.POST, request.FILES, instance=user)
+#         if user_form.is_valid():
+#             user_form.save()
+#             return HttpResponseRedirect(reverse('my_admin:users'))
+#     else:
+#         user_form = AdminShopUserUpdateForm(instance=user)
+#
+#     context = {
+#         'page_title': 'users/edit',
+#         'form': user_form
+#     }
+#
+#     return render(request, 'adminapp/update.html', context)
 
-    context = {
-        'page_title': 'users/edit',
-        'form': user_form
-    }
 
-    return render(request, 'adminapp/update.html', context)
+class UserUpdateView(OnlyAdminMixin, PageTitleMixin, UpdateView):
+    model = ShopUser
+    form_class = AdminShopUserUpdateForm
+    success_url = reverse_lazy('adminapp:users')
+    page_title = 'users/edit'
 
 
-@user_passes_test(lambda user: user.is_superuser)
-def user_delete(request, pk):
-    user = get_object_or_404(ShopUser, pk=pk)
+# @user_passes_test(lambda user: user.is_superuser)
+# def user_delete(request, pk):
+#     user = get_object_or_404(ShopUser, pk=pk)
+#
+#     if request.method == 'POST':
+#         user.is_active = False
+#         user.save()
+#         return HttpResponseRedirect(reverse('my_admin:users'))
+#
+#     context = {
+#         'page_title': 'users/delete',
+#         'obj_to_delete': user,
+#     }
+#     return render(request, 'adminapp/delete.html', context)
 
-    if request.method == 'POST':
-        user.is_active = False
-        user.save()
-        return HttpResponseRedirect(reverse('my_admin:users'))
 
-    context = {
-        'page_title': 'users/delete',
-        'obj_to_delete': user,
-    }
-    return render(request, 'adminapp/delete.html', context)
+class UserDeleteView(OnlyAdminMixin, PageTitleMixin, DeleteView):
+    model = ShopUser
+    success_url = reverse_lazy('my_admin:users')
+    page_title = 'user/delete'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # @user_passes_test(lambda user: user.is_superuser)
@@ -143,17 +163,21 @@ def user_recover(request, pk):
         return JsonResponse({'result': result})
 
 
-@user_passes_test(lambda user: user.is_staff)
-def categories(request):
+# @user_passes_test(lambda user: user.is_staff)
+# def categories(request):
+#     categories_list = ProductCategory.objects.all().order_by('-is_active', 'pk')
+#
+#     content = {
+#         'page_title': 'administration/categories',
+#         'objects': categories_list
+#     }
+#
+#     return render(request, 'adminapp/categories.html', content)
 
-    categories_list = ProductCategory.objects.all().order_by('-is_active', 'pk')
 
-    content = {
-        'page_title': 'administration/categories',
-        'objects': categories_list
-    }
-
-    return render(request, 'adminapp/categories.html', content)
+class CategoriesListView(OnlyStaffMixin, PageTitleMixin, ListView):
+    model = ProductCategory
+    page_title = 'administration/categories of product'
 
 
 # @user_passes_test(lambda user: user.is_staff)
@@ -174,7 +198,7 @@ def categories(request):
 #     return render(request, 'adminapp/update.html', context)
 
 
-class ProductCategoryCreateView(OnlyStaffMixin, MyContextMixin, CreateView):
+class ProductCategoryCreateView(OnlyStaffMixin, PageTitleMixin, CreateView):
     model = ProductCategory
     success_url = reverse_lazy('my_admin:categories')
     form_class = AdminProductCategoryEditForm
@@ -200,7 +224,7 @@ class ProductCategoryCreateView(OnlyStaffMixin, MyContextMixin, CreateView):
 #     return render(request, 'adminapp/update.html', context)
 
 
-class ProductCategoryUpdateView(OnlyStaffMixin, MyContextMixin, UpdateView):
+class ProductCategoryUpdateView(OnlyStaffMixin, PageTitleMixin, UpdateView):
     model = ProductCategory
     form_class = AdminProductCategoryEditForm
     success_url = reverse_lazy('my_admin:categories')
@@ -223,7 +247,7 @@ class ProductCategoryUpdateView(OnlyStaffMixin, MyContextMixin, UpdateView):
 #     return render(request, 'adminapp/delete.html', context)
 
 
-class ProductCategoryDeleteView(OnlyStaffMixin, MyContextMixin, DeleteView):
+class ProductCategoryDeleteView(OnlyStaffMixin, PageTitleMixin, DeleteView):
     model = ProductCategory
     success_url = reverse_lazy('my_admin:categories')
     page_title = 'category/delete'
@@ -235,16 +259,14 @@ class ProductCategoryDeleteView(OnlyStaffMixin, MyContextMixin, DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-
 @user_passes_test(lambda user: user.is_staff)
 def category_products(request, pk):
-    title = 'administration/product'
 
     category = get_object_or_404(ProductCategory, pk=pk)
     products_list = Product.objects.filter(category__pk=pk).order_by('-is_active', 'name')
 
     content = {
-        'title': title,
+        'title': 'administration/product',
         'category': category,
         'objects': products_list,
     }
@@ -309,7 +331,7 @@ def product_update(request, pk):
 #     return render(request, 'adminapp/product_read.html', context)
 
 
-class ProductDetailView(OnlyStaffMixin, MyContextMixin, DetailView):
+class ProductDetailView(OnlyStaffMixin, PageTitleMixin, DetailView):
     model = Product
     page_title = 'product/detail'
 
@@ -329,4 +351,3 @@ def product_delete(request, pk):
         'pk': category_pk,
     }
     return render(request, 'adminapp/delete.html', context)
-
