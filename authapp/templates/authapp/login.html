@@ -2,18 +2,22 @@
 {% load static %}
 
 {% block container %}
-    <form class="form-horizontal" method="post">
-        {% csrf_token %}
-        {% if next %}
-            <input type="hidden" name="next" value="{{ next }}">
-        {% endif %}
-        {{ form.as_p }}
-        <br>
-        <input class="form-control" type="submit" value="sign in">
-    </form>
-    <a href="{% url 'auth:register' %}"
-       class="btn btn-round form-control">
-        sign up
-    </a>
+    {%if activate_message %}
+        <h4>{{ activate_message }}</h4>
+    {% else %}
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+            {{ form.as_p }}
+            <br>
+            <input class="form-control" type="submit" value="sign in">
+        </form>
+        <a href="{% url 'auth:register' %}"
+           class="btn btn-round form-control">
+            sign up
+        </a>
+    {% endif %}
 
 {% endblock %}

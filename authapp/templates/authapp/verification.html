@@ -1,0 +1,16 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+
+{% block container %}
+    {% if user %}
+        <h3>Congratulate</h3>
+        <br>
+        <h4>User {{ user.username }} successfully confirm</h4>
+    {% else %}
+        <h4>Verification is failed</h4>
+    {% endif %}
+    <br>
+    <a class="btn btn-default form-control" href="{% url 'main:index' %}">home</a>
+
+{% endblock %}

@@ -1,19 +1,24 @@
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm, ShopUserPasswordChangeForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, \
+    ShopUserUpdateForm, ShopUserPasswordChangeForm
 # from authapp.models import ShopUser
+from authapp.models import ShopUser
 
 
 def register(request):
     if request.method == 'POST':
-        form = ShopUserRegisterForm(request.POST)
+        form = ShopUserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            if user.send_verify_email():
+                print('Сообщение юзеру отправлено')
+            else:
+                print('Ошибка отправки сообщения')
             return HttpResponseRedirect(reverse('auth:login'))
     else:
         form = ShopUserRegisterForm()
@@ -25,6 +30,7 @@ def register(request):
 
 
 def login(request):
+    activate_message = ''
     next = request.GET['next'] if 'next' in request.GET.keys() else ''
     if request.method == 'POST':
         form = ShopUserLoginForm(data=request.POST or None)
@@ -40,11 +46,15 @@ def login(request):
                 else:
                     return HttpResponseRedirect(reverse('main:index'))
     else:
+        if 'auth/register' in request.META.get('HTTP_REFERER'):
+            activate_message = f'A confirmation email was sent to your e-mail \
+            address. To log in, click the link in the email.'
         form = ShopUserLoginForm()
     context = {
         'title': 'Sign in the system',
         'form': form,
         'next': next,
+        'activate_message': activate_message,
     }
     return render(request, 'authapp/login.html', context)
 
@@ -52,7 +62,8 @@ def login(request):
 @login_required
 def update(request):
     if request.method == 'POST':
-        form = ShopUserUpdateForm(request.POST, request.FILES, instance=request.user)
+        form = ShopUserUpdateForm(request.POST, request.FILES,
+                                  instance=request.user)
         if form.is_valid():
             form.save()
             # костомизировал - подтверждение успешного изменения #
@@ -78,10 +89,12 @@ def logout(request):
 
 def pass_change(request):
     if request.method == 'POST':
-        form = ShopUserPasswordChangeForm(data=request.POST or None, user=request.user)
+        form = ShopUserPasswordChangeForm(data=request.POST or None,
+                                          user=request.user)
         if form.is_valid():
             form.save()
-            auth.update_session_auth_hash(request, form.user)  # сохраняем текущую сессию
+            auth.update_session_auth_hash(request,
+                                          form.user)  # сохраняем текущую сессию
             context = {
                 'title': 'Chenge password',
                 'form': form,
@@ -95,3 +108,20 @@ def pass_change(request):
             'form': form,
         }
         return render(request, 'authapp/pass_change.html', context)
+
+
+def verify(request, email, activation_key):
+    try:
+        user = ShopUser.objects.get(email=email)
+        if user.activation_key == activation_key and not \
+                user.is_activation_key_expired():
+            user.is_active = True
+            user.activation_key = ''
+            user.save()
+            auth.login(request, user)
+        else:
+            print(f'Error activation user {user.username}')
+        return render(request, 'authapp/verification.html')
+    except Exception as e:
+        print(f'Error activation user: {e.args}')
+        return HttpResponseRedirect(reverse('main:index'))
