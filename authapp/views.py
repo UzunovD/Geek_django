@@ -14,11 +14,7 @@ def register(request):
     if request.method == 'POST':
         form = ShopUserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            if user.send_verify_email():
-                print('Сообщение юзеру отправлено')
-            else:
-                print('Ошибка отправки сообщения')
+            form.save()
             return HttpResponseRedirect(reverse('auth:login'))
     else:
         form = ShopUserRegisterForm()

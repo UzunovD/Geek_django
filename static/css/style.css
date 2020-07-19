@@ -642,7 +642,6 @@ a:focus {
 }
 
 .footer_icon {
-    font-family: 'icomoon' !important;
     font-size: 28px;
     line-height: 26px;
     font-weight: 400;
@@ -751,7 +750,7 @@ a:focus {
     margin: 48px 0 34px 0;
     font-size: 48px;
     line-height: 30px;
-    font-weight: 400;
+    /*font-weight: 400;*/
     text-transform: uppercase;
     color: #212121;
 }
@@ -945,4 +944,15 @@ a:focus {
     justify-content: center;
     height: 20px;
     color: #555;
+}
+
+.login_icon {
+    font-size: 48px;
+    margin: 10px;
+    color: #6c6c6c;
+}
+
+.log_ico {
+    display: flex;
+    justify-content: center;
 }

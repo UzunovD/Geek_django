@@ -10,7 +10,9 @@
         <br>
         <input class="form-control" type="submit" value="save">
     </form>
+{#    {% if  %}#}
     <a class="btn btn-default form-control" href="{% url 'auth:pass_change' %}">change password</a>
+{#    {% endif %}#}
     <br>
     <br>
     <a class="btn btn-default form-control" href="{% url 'main:index' %}">home</a>
