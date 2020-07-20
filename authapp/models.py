@@ -37,3 +37,22 @@ class ShopUser(AbstractUser):
                   f' \n{settings.DOMAIN_NAME}{verify_link}'
 
         return send_mail(title,message,settings.EMAIL_HOST_USER,[self.email])
+
+class ShopUserProfile(models.Model):
+    MALE = 'M'
+    FAMALE = 'W'
+    ANOTHER = 'A'
+
+    GENDER_CHOICES = (
+        (MALE, 'Man'),
+        (FAMALE, 'Woman'),
+        (ANOTHER, 'Another'),
+    )
+
+    user = models.OneToOneField(ShopUser, on_delete=models.CASCADE,
+                                primary_key=True)
+    tagline = models.CharField(verbose_name='tags', max_length=128, blank=True)
+    aboutMe = models.TextField(verbose_name='about yourself', max_length=512,
+                               blank=True)
+    gender = models.CharField(verbose_name='gender',max_length=1,
+                              choices=GENDER_CHOICES, default=ANOTHER)

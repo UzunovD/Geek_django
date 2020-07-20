@@ -1,7 +1,7 @@
 import json
 import os
 
-from authapp.models import ShopUser
+from authapp.models import ShopUser, ShopUserProfile
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
@@ -13,13 +13,12 @@ def load_from_json(file_name):
 
 
 class Command(BaseCommand):
-    help = 'Fill DB new data'
+    help = 'add DB new data. If user have bo profile'
 
     def handle(self, *args, **options):
-        # users = load_from_json('users')
-        #
-        # ShopUser.objects.all().delete()
-        # [ShopUser.objects.create(**user) for user in users]
+        users_to_update = ShopUser.objects.filter(shopuserprofile__isnull=True)
+        print(users_to_update.count())
 
-        if not ShopUser.objects.filter(username='django').exists():
-            ShopUser.objects.create_superuser(username='django', email='', password='geekbrains')
+        for user in users_to_update:
+            ShopUserProfile.objects.create(user=user)
+
