@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, \
-    ShopUserUpdateForm, ShopUserPasswordChangeForm
+    ShopUserUpdateForm, ShopUserPasswordChangeForm, ShopUserProfileUpdateForm
 # from authapp.models import ShopUser
 from authapp.models import ShopUser, ShopUserProfile
 
@@ -62,20 +62,27 @@ def update(request):
     if request.method == 'POST':
         form = ShopUserUpdateForm(request.POST, request.FILES,
                                   instance=request.user)
-        if form.is_valid():
+        profile_form = ShopUserProfileUpdateForm(request.POST,
+            instance=request.user.shopuserprofile)
+        if form.is_valid() and profile_form.is_valid():
             form.save()
+            # profile_form.save()
             # костомизировал - подтверждение успешного изменения #
             context = {
                 'title': 'Chenge personal data',
                 'form': form,
+                'profile_form': profile_form,
                 'confirmation': 'Changed successfully'
             }
             return render(request, 'authapp/update.html', context)
     else:
         form = ShopUserUpdateForm(instance=request.user)
+        profile_form = ShopUserProfileUpdateForm(
+            instance=request.user.shopuserprofile)
     context = {
         'title': 'Chenge personal data',
         'form': form,
+        'profile_form': profile_form,
     }
     return render(request, 'authapp/update.html', context)
 

@@ -7,11 +7,12 @@
         <h3 class=conf>{{ confirmation }}</h3> {# костомизировал - подтверждение успешного изменения #}
         {% csrf_token %}
         {{ form.as_p }}
+        {{ profile_form.as_p }}
         <br>
         <input class="form-control" type="submit" value="save">
     </form>
-{#    {% if  %}#}
-    <a class="btn btn-default form-control" href="{% url 'auth:pass_change' %}">change password</a>
+{#    {% if not request.user.usersocialauth__provider %}#}
+        <a class="btn btn-default form-control" href="{% url 'auth:pass_change' %}">change password</a>
 {#    {% endif %}#}
     <br>
     <br>
