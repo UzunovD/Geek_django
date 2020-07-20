@@ -1,5 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -7,7 +9,7 @@ from django.urls import reverse
 from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, \
     ShopUserUpdateForm, ShopUserPasswordChangeForm
 # from authapp.models import ShopUser
-from authapp.models import ShopUser
+from authapp.models import ShopUser, ShopUserProfile
 
 
 def register(request):
@@ -114,10 +116,18 @@ def verify(request, email, activation_key):
             user.is_active = True
             user.activation_key = ''
             user.save()
-            auth.login(request, user)
+            auth.login(request, user,
+                       backend='django.contrib.auth.backends.ModelBackend')
         else:
             print(f'Error activation user {user.username}')
         return render(request, 'authapp/verification.html')
     except Exception as e:
         print(f'Error activation user: {e.args}')
         return HttpResponseRedirect(reverse('main:index'))
+
+@receiver(post_save, sender=ShopUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        ShopUserProfile.objects.create(user=instance)
+    else:
+        instance.shopuserprofile.save()
