@@ -36,11 +36,24 @@
                         </li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <li class="menu_list">
-                            <a href="{% url 'auth:update' %}" class="menu_link">
-                                {{ user.first_name|default:'user' }}
+                        <div class="dropdown">
+                            <a class="dropdown-toggle menu_link" href="" data-toggle="dropdown">
+                                {{ user.first_name|default:'user'|title }}
+                                <span class="caret"></span>
                             </a>
-                        </li>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'auth:update' %}">
+                                        PROFILE
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'my_orders:view' %}">
+                                        ORDERS
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     {% endif %}
                     <li class="menu_list">
                         {% if user.is_authenticated %}

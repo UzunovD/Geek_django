@@ -572,7 +572,7 @@ a:focus {
     width: 48px;
     height: 48px;
     position: absolute;
-    right: -2px;
+    right: 18px;
     top: 27px;
     border: none;
     background: transparent url("/static/img/paper-plane_act.png") no-repeat center top;
@@ -955,4 +955,8 @@ a:focus {
 .log_ico {
     display: flex;
     justify-content: center;
+}
+
+.my_orders_list {
+    min-height: 100%;
 }

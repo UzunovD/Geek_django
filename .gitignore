@@ -140,3 +140,4 @@ cython_debug/
 /mainapp/fixtures/mainapp.json
 /db (копия до аунтификации).sqlite3
 /media/users_avatars/
+/geekshop/social_auth.json
