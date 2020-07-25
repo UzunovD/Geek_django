@@ -44,11 +44,10 @@ class Order(models.Model):
         items = self.orderitems.all()
         return len(items)
 
-    def get_total_cost(self):
+    def get_total_coast(self):
         items = self.orderitems.all()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
-    # переопределяем метод, удаляющий объект
     # def delete(self):
     #     for item in self.orderitems.select_related():
     #         item.product.quantity += item.quantity

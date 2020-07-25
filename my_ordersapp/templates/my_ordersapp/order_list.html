@@ -2,13 +2,9 @@
 {% load static %}
 
 {% block container %}
-    <div class="prod_header">
-        <div class="padding_site">
-            <!---              headr                  -->
-            {% include 'mainapp/includes/inc__main_menu.html' %}
-            <div class="prod_head_h">
-                <span>Your orders, {{ user.first_name|default:'user'|title }}</span>
-            </div>
+    <div class="prod_head_h">
+    <span>Your orders, {{ user.first_name|default:'user'|title }}</span>
+    </div>
         </div>
         </div>
             <div class="padding_site my_orders_list">
@@ -35,14 +31,14 @@
                         </td>
                         <td>
                             {% if item.status == 'F' %}
-                                <a href="{#% url 'ordersapp:order_update' item.pk %#}">
+                                <a href="{% url 'my_ordersapp:order_update' item.pk %}">
                                     edit
                                 </a>
                             {% endif %}
                         </td>
                         <td>
                             {% if item.status == 'F' %}
-                                <a href="{#% url 'ordersapp:order_delete' item.pk %#}">
+                                <a href="{% url 'my_ordersapp:order_delete' item.pk %}">
                                     delete
                                 </a>
                             {% endif %}
@@ -52,8 +48,8 @@
                 </tbody>
             </table>
             <button class="btn btn-default btn-round">
-                <a href="{#% url 'ordersapp:order_create' %#}">
-                    новый
+                <a href="{% url 'my_ordersapp:order_create' %}">
+                    new
                 </a>
             </button>
         </div>

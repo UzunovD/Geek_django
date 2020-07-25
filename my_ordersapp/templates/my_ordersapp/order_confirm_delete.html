@@ -1,15 +1,15 @@
-{% extends 'ordersapp/base.html' %}
+{% extends 'my_ordersapp/base.html' %}
 {% load static %}
 
 {% block container %}
     <div class="category_delete">
-        <div class="h1">Уверены, что хотите удалить?</div>
-        {% include 'ordersapp/includes/inc__order_summary.html' %}
+        <div class="h1">Are you sure to delete?</div>
+        {% include 'my_ordersapp/includes/inc__order_summary.html' %}
         <form method="post">
             {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="удалить">
+            <input class="btn btn-danger" type="submit" value="delete">
         </form>
 
-        <a href="{% url 'ordersapp:index' %}" class="btn btn-success">отмена</a>
+        <a href="{% url 'my_ordersapp:view' %}" class="btn btn-success">cancel</a>
     </div>
 {% endblock %}
