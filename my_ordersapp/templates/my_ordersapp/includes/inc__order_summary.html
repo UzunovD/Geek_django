@@ -9,7 +9,7 @@
         The total quantity of goods: <span class="order_total_quantity">{{ object.get_total_quantity }}</span>
     </div>
     <div class="h3">
-        The total coast: $<span class="order_total_cost">{{ object.get_total_coast }}</span>
+        The total cost: $<span class="order_total_cost">{{ object.get_total_cost }}</span>
     </div>
 {% else %}
     <div class="h2">A new order</div>
@@ -20,7 +20,7 @@
             The total quantity of goods: <span class="order_total_quantity">{{ basket.0.total_quantity }}</span>
         </div>
         <div class="h3">
-            The total coast: $<span class="order_total_cost">{{ basket.0.total_cost }}</span>
+            The total cost: $<span class="order_total_cost">{{ basket.0.total_cost }}</span>
         </div>
     {% endif %}
 {% endif %}

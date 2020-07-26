@@ -8,7 +8,7 @@
                 <span class="product_price">$&nbsp{{ item.product.price }}</span>
                 <input type="number" name="{{ item.pk }}" min="0" max="{{ item.product.quantity }}"
                        value="{{ item.quantity }}">
-                <span class="product_coast">$&nbsp{{ item.product_coast }}</span>
+                <span class="product_cost">$&nbsp{{ item.product_cost }}</span>
                 <a href="{% url 'basket:delete_product' item.pk %}" class="btn btn-round">
                     delete
                 </a>
@@ -16,7 +16,7 @@
         {% endfor %}
         <div class="basket_summary">
             There are {{ basket.0.total_quantity }} items in the basket with a total value of
-            $&nbsp{{ basket.0.total_coast }}
+            $&nbsp{{ basket.0.total_cost }}
         </div>
     {% else %}
         <h4>The basket is empty</h4>

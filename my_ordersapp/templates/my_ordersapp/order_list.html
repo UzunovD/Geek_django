@@ -25,7 +25,7 @@
                         <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
                         <td>{{ item.get_status_display }}</td>
                         <td>
-                            <a href="{#% url 'ordersapp:order_read' item.pk %#}">
+                            <a href="{% url 'my_ordersapp:order_detail' item.pk %}">
                                 details
                             </a>
                         </td>

@@ -654,7 +654,7 @@ a:focus {
 /*--------------headr--------------*/
 .prod_header {
     width: 1366px;
-    height: 360px;
+    /*height: 360px;*/
     background-color: #f5f5f5;
 }
 

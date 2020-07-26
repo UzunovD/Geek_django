@@ -65,7 +65,7 @@
                     <li class="menu_list">
                         <a href="{% url 'basket:view' %}" class="menu_link
                             {% if request.resolver_match.url_name == 'view' %} menu_link_active {% endif %}">
-                            {% if basket %} ${{ basket.0.total_coast }} ({{ basket.0.total_quantity }} pcs) {% endif %}</a>
+                            {% if basket %} ${{ basket.0.total_cost }} ({{ basket.0.total_quantity }} pcs) {% endif %}</a>
                     </li>
                     <li class="menu_list"><a href="#" class="menu_link"><img src="{% static 'img/search_224.svg' %}" alt="search"></a></li>
                 </ul>

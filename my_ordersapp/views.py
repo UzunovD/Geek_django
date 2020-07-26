@@ -1,7 +1,9 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from my_ordersapp.forms import OrderForm, OrderItemForm
 from my_ordersapp.models import Order, OrderItem
@@ -51,13 +53,13 @@ class OrderItemsCreate(CreateView):
                 orderitems.save()
             self.request.user.basket.all().delete()
 
-        if self.object.get_total_coast() == 0:
+        if self.object.get_total_cost() == 0:
             self.object.delete()
 
         return super().form_valid(form)
-    
 
-class OrderItemsUpdate(UpdateView):
+
+class OrderUpdate(UpdateView):
     model = Order
     form_class = OrderForm
     success_url = reverse_lazy('my_ordersapp:view')
@@ -84,13 +86,23 @@ class OrderItemsUpdate(UpdateView):
                 orderitems.instance = self.object
                 orderitems.save()
 
-        if self.object.get_total_coast() == 0:
+        if self.object.get_total_cost() == 0:
             self.object.delete()
 
         return super().form_valid(form)
 
 
-class OrderItemsDelete(DeleteView):
+class OrderDelete(DeleteView):
     model = Order
     success_url = reverse_lazy('my_ordersapp:view')
 
+
+class OrderDeteil(DetailView):
+    model = Order
+
+
+def order_confirm(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    order.status = Order.SENT_TO_PROCEED
+    order.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

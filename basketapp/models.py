@@ -11,7 +11,7 @@ class Basket(models.Model):
 
 
     @property
-    def product_coast(self):
+    def product_cost(self):
         '''return cost of all products this type'''
         return self.product.price * self.quantity
 
@@ -24,8 +24,8 @@ class Basket(models.Model):
         return _total_quantity
 
     @property
-    def total_coast(self):
-        '''return total coast of all items for user'''
+    def total_cost(self):
+        '''return total cost of all items for user'''
         _items = self.user.basket.all()
-        _total_coast = sum(map(lambda item: item.product_coast, _items))
-        return _total_coast
+        _total_cost = sum(map(lambda item: item.product_cost, _items))
+        return _total_cost
