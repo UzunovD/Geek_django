@@ -48,13 +48,18 @@ class Order(models.Model):
         items = self.orderitems.all()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
-    # def delete(self):
+    # def delete(self, using=None, keep_parents=False):
     #     for item in self.orderitems.select_related():
     #         item.product.quantity += item.quantity
     #         item.product.save()
     #
     #     self.is_active = False
     #     self.save()
+
+
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+
 
 
 class OrderItem(models.Model):
@@ -65,3 +70,7 @@ class OrderItem(models.Model):
     @property
     def product_cost(self):
         return self.product.price * self.quantity
+
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.get(pk=pk)
