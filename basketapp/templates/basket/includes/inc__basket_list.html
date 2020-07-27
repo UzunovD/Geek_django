@@ -18,6 +18,9 @@
             There are {{ basket.0.total_quantity }} items in the basket with a total value of
             $&nbsp{{ basket.0.total_cost }}
         </div>
+        <br>
+        <br>
+        <a href="{% url 'my_ordersapp:order_create' %}" class = "btn btn-warning btn-round form-control last">Create your order</a>
     {% else %}
         <h4>The basket is empty</h4>
     {% endif %}

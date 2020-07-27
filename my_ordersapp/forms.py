@@ -17,6 +17,8 @@ class OrderForm(BaseFormControlForm):
 
 
 class OrderItemForm(BaseFormControlForm):
+    price = forms.FloatField(label='price', required=False)
+
     class Meta:
         model = OrderItem
         fields = "__all__"
