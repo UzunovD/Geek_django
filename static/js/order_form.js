@@ -61,12 +61,12 @@ function orderSummaryUpdate(orderitemPrice, deltaQuantity) {
     orderTotalQuantityDOM.innerHTML = orderTotalQuantity.toString();
 }
 
-// function deleteOrderItem(row) {
-//     let targetName = row[0].querySelector('input[type="number"]').name;
-//     orderitemNum = parseInt(targetName.replace('orderitems-', '').replace('-quantity', ''));
-//     deltaQuantity = -quantityArr[orderitemNum];
-//     orderSummaryUpdate(priceArr[orderitemNum], deltaQuantity);
-// }
+function deleteOrderItem(row) {
+    let targetName = row[0].querySelector('input[type="number"]').name;
+    orderitemNum = parseInt(targetName.replace('orderitems-', '').replace('-quantity', ''));
+    deltaQuantity = -quantityArr[orderitemNum];
+    orderSummaryUpdate(priceArr[orderitemNum], deltaQuantity);
+}
 
 function updateTotalQuantity() {
     for (let i = 0; i < totalForms; i++) {
@@ -92,12 +92,12 @@ window.onload = function () {
 
 
 
-    // $('.formset_row').formset({
-    //     addText: 'добавить продукт',
-    //     deleteText: 'удалить',
-    //     prefix: 'orderitems',
-    //     removed: deleteOrderItem
-    // });
+    $('.formset_row').formset({
+        addText: 'добавить продукт',
+        deleteText: 'удалить',
+        prefix: 'orderitems',
+        // removed: deleteOrderItem
+    });
 
     // orderForm.on('change', 'select', function (event) {
     //     let target = event.target;
