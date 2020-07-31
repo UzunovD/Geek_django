@@ -25,7 +25,7 @@ class Order(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='created', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='updated', auto_now=True)
-    status = models.CharField(verbose_name='sstatus', max_length=1, choices=ORDER_STATUS_CHOICES, default=FORMING)
+    status = models.CharField(verbose_name='status', max_length=1, choices=ORDER_STATUS_CHOICES, default=FORMING)
     is_active = models.BooleanField(verbose_name='is active', default=True)
 
     class Meta:

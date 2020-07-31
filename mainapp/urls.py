@@ -12,5 +12,6 @@ urlpatterns = [
          name='products_pagination'),
     path('product/<int:pk_prod>/', mainapp.product_page, name='product_page'),
     path('product_details/', mainapp.product_details, name='product_details'),
+    path('product/details/<int:pk>/async/', mainapp.product_details_async),
 
 ]

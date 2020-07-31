@@ -1,6 +1,7 @@
 import random
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 from mainapp.models import ProductCategory, Product
@@ -97,3 +98,17 @@ def product_details(request):
         'hot_deal': hot_deal,
     }
     return render(request, 'mainapp/product_details.html', context)
+
+
+def product_details_async(request, pk):
+    if request.is_ajax():
+        try:
+            produkt = Product.objects.get(pk=pk)
+            return JsonResponse({
+                'price': produkt.price,
+            })
+        except Exception as e:
+            return JsonResponse({
+                'error': str(e)
+            })
+

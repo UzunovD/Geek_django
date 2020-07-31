@@ -16,6 +16,12 @@ class OrdersList(ListView):
         return
 
 
+# class GetActivOrderMixin:
+#     def get_queryset(self):
+#         qs = super().get_queryset()
+#         return qs.filter(is_active=True)
+
+
 class OrderItemsCreate(CreateView):
     model = Order
     form_class = OrderForm
