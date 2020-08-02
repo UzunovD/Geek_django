@@ -145,3 +145,5 @@ cython_debug/
 /my_ordersapp/fixtures/my_ordersapp.json
 /authapp/fixtures/authapp.json
 /basketapp/fixtures/basketapp.json
+/tmp/email-messages/20200718-134157-140081588020992.log
+/tmp/Снимок экрана от 2020-07-18 21-56-34.png
