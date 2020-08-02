@@ -141,3 +141,7 @@ cython_debug/
 /db (копия до аунтификации).sqlite3
 /media/users_avatars/
 /geekshop/social_auth.json
+/geekshop/settings_orig.py
+/my_ordersapp/fixtures/my_ordersapp.json
+/authapp/fixtures/authapp.json
+/basketapp/fixtures/basketapp.json

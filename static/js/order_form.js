@@ -53,6 +53,8 @@ function formDelete(event) {
 
 
 function orderSummaryUpdate(orderitemPrice, deltaQuantity) {
+    console.log(quantityArr)
+    console.log(priceArr)
     deltaCost = orderitemPrice * deltaQuantity;
     orderTotalCost = Number((orderTotalCost + deltaCost).toFixed(2));
     orderTotalQuantity = orderTotalQuantity + deltaQuantity;
@@ -97,8 +99,8 @@ window.onload = function () {
 
 
     $('.formset_row').formset({
-        addText: 'добавить продукт',
-        deleteText: 'удалить',
+        addText: 'add product',
+        deleteText: 'delete',
         prefix: 'orderitems',
         removed: deleteOrderItem
     });
@@ -113,7 +115,7 @@ window.onload = function () {
             url: '/product/details/' + productPk + '/async/',
             success: function (data) {
                 priceArr[orderItemIndex] = parseFloat(data.price);
-                if (isNaN(quantityArr[orderItemIndex])) {
+                if (!quantityArr[orderItemIndex] || isNaN(quantityArr[orderItemIndex])) {
                     quantityArr[orderItemIndex] = 0;
                 }
                 let priceElement = '<span>' + '$' + data.price.toString().replace('.', ',') + '</span>';
