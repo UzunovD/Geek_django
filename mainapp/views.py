@@ -92,6 +92,7 @@ def product_details(request):
     related_products = hot_deal.category.product_set.filter(is_active=True,
                                                             category__is_active=True).filter(type_prod = hot_deal.type_prod).exclude(pk=hot_deal_pk)
 
+
     context = {
         'page_title': 'product details',
         'related_products': related_products[:3],

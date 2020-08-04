@@ -26,4 +26,4 @@ class Product(models.Model):
 
     @staticmethod
     def get_active_product():
-        return Product.objects.filter(category__is_active=True, is_active=True)
+        return Product.objects.select_related().filter(category__is_active=True, is_active=True)
