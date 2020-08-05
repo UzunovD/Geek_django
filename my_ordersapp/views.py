@@ -1,15 +1,23 @@
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from my_ordersapp.forms import OrderForm, OrderItemForm
 from my_ordersapp.models import Order, OrderItem
 
 
-class OrdersList(ListView):
+class LoggedUserOnlyMixin:
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+
+class OrdersList(LoggedUserOnlyMixin, ListView):
     model = Order
 
     def get_queruset(self):
@@ -22,7 +30,7 @@ class OrdersList(ListView):
 #         return qs.filter(is_active=True)
 
 
-class OrderItemsCreate(CreateView):
+class OrderItemsCreate(LoggedUserOnlyMixin, CreateView):
     model = Order
     form_class = OrderForm
     success_url = reverse_lazy('my_ordersapp:view')
@@ -66,7 +74,7 @@ class OrderItemsCreate(CreateView):
         return super().form_valid(form)
 
 
-class OrderUpdate(UpdateView):
+class OrderUpdate(LoggedUserOnlyMixin, UpdateView):
     model = Order
     form_class = OrderForm
     success_url = reverse_lazy('my_ordersapp:view')
@@ -102,15 +110,15 @@ class OrderUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class OrderDelete(DeleteView):
+class OrderDelete(LoggedUserOnlyMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('my_ordersapp:view')
 
 
-class OrderDeteil(DetailView):
+class OrderDetail(LoggedUserOnlyMixin, DetailView):
     model = Order
 
-
+@login_required
 def order_confirm(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.status = Order.SENT_TO_PROCEED

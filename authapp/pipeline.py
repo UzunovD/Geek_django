@@ -8,7 +8,7 @@ def fill_from_social_user_profile(backend, user, response, *args, **kwargs):
     if backend.name == 'google-oauth2':
         if 'gender' in response.keys():
             if response['gender'] == 'male':
-                user.shopuserprofile.gender = ShopUserProfile.FAMALE
+                user.shopuserprofile.gender = ShopUserProfile.FEMALE
             elif response['gender'] == 'man':
                 user.shopuserprofile.gender = ShopUserProfile.MALE
             else:

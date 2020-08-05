@@ -82,7 +82,7 @@ def product_page(request, pk_prod):
         'page_title': 'product details',
         'product': product,
     }
-    return render(request, 'mainapp/product_page.html',context)
+    return render(request, 'mainapp/product_page.html', context)
 
 
 def product_details(request):

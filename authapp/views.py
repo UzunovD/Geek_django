@@ -44,7 +44,7 @@ def login(request):
                 else:
                     return HttpResponseRedirect(reverse('main:index'))
     else:
-        if 'auth/register' in request.META.get('HTTP_REFERER'):
+        if 'auth/register' in request.META.get('HTTP_REFERER', ''):
             activate_message = f'A confirmation email was sent to your e-mail \
             address. To log in, click the link in the email.'
         form = ShopUserLoginForm()

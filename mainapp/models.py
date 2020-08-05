@@ -4,7 +4,7 @@ from django.db import models
 class ProductCategory(models.Model):
     name = models.CharField('category name', max_length=50)
     description = models.TextField('category description', blank=True)
-    is_active = models.BooleanField(verbose_name='is_active', default=True)
+    is_active = models.BooleanField(verbose_name='is_active', default=True, db_index=True)
 
     def __str__(self):
         return self.name
@@ -19,11 +19,11 @@ class Product(models.Model):
     price = models.DecimalField('Price', max_digits=8, decimal_places=2, default=0)
     image = models.ImageField(upload_to='products_images', blank=True)
     quantity = models.PositiveIntegerField('quantity', default=0)
-    is_active = models.BooleanField(verbose_name='is_active', default=True)
+    is_active = models.BooleanField(verbose_name='is_active', default=True, db_index=True)
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
 
     @staticmethod
     def get_active_product():
-        return Product.objects.select_related().filter(category__is_active=True, is_active=True)
+        return Product.objects.select_related().filter(category__is_active=True, is_active=True, db_index=True)

@@ -53,8 +53,6 @@ function formDelete(event) {
 
 
 function orderSummaryUpdate(orderitemPrice, deltaQuantity) {
-    console.log(quantityArr)
-    console.log(priceArr)
     deltaCost = orderitemPrice * deltaQuantity;
     orderTotalCost = Number((orderTotalCost + deltaCost).toFixed(2));
     orderTotalQuantity = orderTotalQuantity + deltaQuantity;
