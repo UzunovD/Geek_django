@@ -1,3 +1,5 @@
+from django.utils.functional import cached_property
+
 from authapp.models import ShopUser
 from django.db import models
 from mainapp.models import Product
@@ -18,6 +20,10 @@ class Basket(models.Model):
 
     # objects = BasketQuerySet.as_manager()
 
+    @cached_property
+    def get_items_cashed(self):
+        return self.user.basket.select_related('product').all()
+
     @property
     def product_cost(self):
         '''return cost of all products this type'''
@@ -26,14 +32,14 @@ class Basket(models.Model):
     @property
     def total_quantity(self):
         '''return total quantity of user'''
-        _items = self.user.basket.all()
+        _items = self.get_items_cashed
         _total_quantity = sum(map(lambda item: item.quantity, _items))
         return _total_quantity
 
     @property
     def total_cost(self):
         '''return total cost of all items for user'''
-        _items = self.user.basket.all()
+        _items = self.get_items_cashed
         _total_cost = sum(map(lambda item: item.product_cost, _items))
         return _total_cost
 

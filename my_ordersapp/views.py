@@ -21,7 +21,7 @@ class OrdersList(LoggedUserOnlyMixin, ListView):
     model = Order
 
     def get_queruset(self):
-        return
+        return self.request.user.order_set.all()
 
 
 # class GetActivOrderMixin:
@@ -33,7 +33,7 @@ class OrdersList(LoggedUserOnlyMixin, ListView):
 class OrderItemsCreate(LoggedUserOnlyMixin, CreateView):
     model = Order
     form_class = OrderForm
-    success_url = reverse_lazy('my_ordersapp:view')
+    success_url = reverse_lazy('my_orders:view')
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -77,7 +77,7 @@ class OrderItemsCreate(LoggedUserOnlyMixin, CreateView):
 class OrderUpdate(LoggedUserOnlyMixin, UpdateView):
     model = Order
     form_class = OrderForm
-    success_url = reverse_lazy('my_ordersapp:view')
+    success_url = reverse_lazy('my_orders:view')
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -112,7 +112,7 @@ class OrderUpdate(LoggedUserOnlyMixin, UpdateView):
 
 class OrderDelete(LoggedUserOnlyMixin, DeleteView):
     model = Order
-    success_url = reverse_lazy('my_ordersapp:view')
+    success_url = reverse_lazy('my_orders:view')
 
 
 class OrderDetail(LoggedUserOnlyMixin, DetailView):

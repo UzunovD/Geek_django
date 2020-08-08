@@ -48,13 +48,13 @@ class Order(models.Model):
         items = self.orderitems.all()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
-    # def delete(self, using=None, keep_parents=False):
-    #     for item in self.orderitems.select_related():
-    #         item.product.quantity += item.quantity
-    #         item.product.save()
-    #
-    #     self.is_active = False
-    #     self.save()
+        # def delete(self, using=None, keep_parents=False):
+        #     for item in self.orderitems.select_related():
+        #         item.product.quantity += item.quantity
+        #         item.product.save()
+        #
+        #     self.is_active = False
+        #     self.save()
 
 
     # def save(self, force_insert=False, force_update=False, using=None,

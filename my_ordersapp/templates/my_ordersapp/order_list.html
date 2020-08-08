@@ -25,20 +25,20 @@
                         <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
                         <td>{{ item.get_status_display }}</td>
                         <td>
-                            <a href="{% url 'my_ordersapp:order_detail' item.pk %}">
+                            <a href="{% url 'my_orders:order_detail' item.pk %}">
                                 details
                             </a>
                         </td>
                         <td>
                             {% if item.status == 'F' %}
-                                <a href="{% url 'my_ordersapp:order_update' item.pk %}">
+                                <a href="{% url 'my_orders:order_update' item.pk %}">
                                     edit
                                 </a>
                             {% endif %}
                         </td>
                         <td>
                             {% if item.status == 'F' %}
-                                <a href="{% url 'my_ordersapp:order_delete' item.pk %}">
+                                <a href="{% url 'my_orders:order_delete' item.pk %}">
                                     delete
                                 </a>
                             {% endif %}
@@ -48,7 +48,7 @@
                 </tbody>
             </table>
             <button class="btn btn-default btn-round">
-                <a href="{% url 'my_ordersapp:order_create' %}">
+                <a href="{% url 'my_orders:order_create' %}">
                     new
                 </a>
             </button>
