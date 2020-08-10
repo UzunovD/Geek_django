@@ -20,13 +20,21 @@ class Command(BaseCommand):
         categories = load_from_json('categories')
 
         ProductCategory.objects.all().delete()
-        [ProductCategory.objects.create(**category) for category in categories]
+        # [ProductCategory.objects.create(**category) for category in categories]
+        product_categories_obj = [ProductCategory(**category) for category in \
+                                  categories]
+        ProductCategory.objects.bulk_create(product_categories_obj)  # for
+        # one request creat all objects from product_categories_obj
 
         products = load_from_json('products')
         Product.objects.all().delete()
+        products_obj = []
         for product in products:
             category_name = product['category']
 
-            _category = ProductCategory.objects.filter(name=category_name).first()
+            _category = ProductCategory.objects.filter(
+                name=category_name).first()
             product['category'] = _category
-            Product.objects.create(**product)
+            # Product.objects.create(**product)
+            products_obj.append(Product(**product))
+        Product.objects.bulk_create(products_obj)
