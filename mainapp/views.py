@@ -4,6 +4,7 @@ from django.core.cache import cache
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.cache import cache_page
 
 from geekshop.settings import LOW_CACHE
 from mainapp.models import ProductCategory, Product
@@ -75,7 +76,6 @@ def index(request):
         'products6': products_[4:10],
     }
     return render(request, 'mainapp/index.html', context)
-
 
 def contact(request):
     locations = [
