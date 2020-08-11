@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import F
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView,\
+    DetailView
 
-from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm, AdminProductCategoryEditForm, \
-    AdminProductEditForm
+from adminapp.forms import AdminShopUserCreateForm, AdminShopUserUpdateForm, \
+    AdminProductCategoryEditForm, AdminProductEditForm
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 
@@ -78,7 +80,8 @@ class UserCreateView(OnlyAdminMixin, PageTitleMixin, CreateView):
 # def user_update(request, pk):
 #     user = get_object_or_404(ShopUser, pk=pk)
 #     if request.method == 'POST':
-#         user_form = AdminShopUserUpdateForm(request.POST, request.FILES, instance=user)
+#         user_form = AdminShopUserUpdateForm(request.POST, request.FILES,
+#         instance=user)
 #         if user_form.is_valid():
 #             user_form.save()
 #             return HttpResponseRedirect(reverse('my_admin:users'))
@@ -209,7 +212,8 @@ class ProductCategoryCreateView(OnlyStaffMixin, PageTitleMixin, CreateView):
 # def category_update(request, pk):
 #     category = get_object_or_404(ProductCategory, pk=pk)
 #     if request.method == 'POST':
-#         category_form = AdminProductCategoryEditForm(request.POST, instance=category)
+#         category_form = AdminProductCategoryEditForm(request.POST,
+#         instance=category)
 #         if category_form.is_valid():
 #             category_form.save()
 #             return HttpResponseRedirect(reverse('my_admin:categories'))
@@ -229,6 +233,17 @@ class ProductCategoryUpdateView(OnlyStaffMixin, PageTitleMixin, UpdateView):
     form_class = AdminProductCategoryEditForm
     success_url = reverse_lazy('my_admin:categories')
     page_title = 'category/edit'
+
+    def form_valid(self, form):
+        if  'discount' in form.cleaned_data:  # cleaned_data -очищенные
+            # данные, пришедшие после заполнения формы данными, то что
+            # пришло POSTом, структура - словарь.
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(
+                    price=F('price') * (1 - discount / 100))
+        return super().form_valid(form)
+
 
 
 # @user_passes_test(lambda user: user.is_staff)
@@ -263,7 +278,8 @@ class ProductCategoryDeleteView(OnlyStaffMixin, PageTitleMixin, DeleteView):
 def category_products(request, pk):
 
     category = get_object_or_404(ProductCategory, pk=pk)
-    products_list = Product.objects.filter(category__pk=pk).order_by('-is_active', 'name')
+    products_list = Product.objects.filter(category__pk=pk).order_by(
+        '-is_active', 'name')
 
     content = {
         'title': 'administration/product',
@@ -282,7 +298,8 @@ def product_create(request, pk):
         if product_form.is_valid():
             product_form.save()
             return HttpResponseRedirect(
-                reverse('my_admin:category_products', kwargs={'pk': category.pk}))
+                reverse('my_admin:category_products', kwargs={
+                    'pk': category.pk}))
     else:
         product_form = AdminProductEditForm(initial={
             'category': category,
@@ -302,11 +319,13 @@ def product_create(request, pk):
 def product_update(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
-        product_form = AdminProductEditForm(request.POST, request.FILES, instance=product)
+        product_form = AdminProductEditForm(request.POST, request.FILES,
+                                            instance=product)
         if product_form.is_valid():
             product_form.save()
             return HttpResponseRedirect(
-                reverse('my_admin:category_products', kwargs={'pk': product.category.pk}))
+                reverse('my_admin:category_products', kwargs={
+                    'pk': product.category.pk}))
     else:
         product_form = AdminProductEditForm(instance=product)
 
@@ -343,7 +362,8 @@ def product_delete(request, pk):
     if request.method == 'POST':
         product.is_active = False
         product.save()
-        return HttpResponseRedirect(reverse('my_admin:category_products', kwargs={'pk': category_pk}))
+        return HttpResponseRedirect(reverse('my_admin:category_products',
+                                            kwargs={'pk': category_pk}))
 
     context = {
         'page_title': 'product/delete',
@@ -351,4 +371,3 @@ def product_delete(request, pk):
         'pk': category_pk,
     }
     return render(request, 'adminapp/delete.html', context)
-
