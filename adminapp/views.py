@@ -351,3 +351,4 @@ def product_delete(request, pk):
         'pk': category_pk,
     }
     return render(request, 'adminapp/delete.html', context)
+
