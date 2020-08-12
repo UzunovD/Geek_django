@@ -9,7 +9,7 @@ from geekshop.utils import db_profile_by_type
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        some_test_products = Product.objects.select_related().filter(
+        some_test_products = Product.objects.filter(
             Q(category__name='modern')|
             Q(type_prod='lamp')
         )
